@@ -38,57 +38,67 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Sistema inicializado correctamente');
 });
 
-// FUNCIÓN DE PANTALLA COMPLETA MEJORADA PARA MÓVIL
+// FUNCIÓN DE PANTALLA COMPLETA CORREGIDA - CON TOGGLE
 function enterFullscreen() {
     try {
-        const elem = document.documentElement;
-        
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
-        } else if (elem.mozRequestFullScreen) { /* Firefox */
-            elem.mozRequestFullScreen();
-        }
-        
-        // Para iOS Safari - simular pantalla completa
-        if (window.navigator.standalone !== undefined) {
-            // Ocultar la barra de direcciones en iOS
-            setTimeout(function() {
-                window.scrollTo(0, 1);
-            }, 0);
-        }
-        
-        // Cambiar ícono
         const icon = document.querySelector('.fullscreen-btn i');
-        if (icon) {
-            icon.className = 'fas fa-compress';
-        }
         
-        console.log('🔲 Intentando activar pantalla completa');
+        // VERIFICAR SI YA ESTÁ EN PANTALLA COMPLETA
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || document.mozFullScreenElement) {
+            // SALIR DE PANTALLA COMPLETA
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
+            
+            // Cambiar ícono a expandir
+            if (icon) {
+                icon.className = 'fas fa-expand';
+            }
+            
+            console.log('📱 Saliendo de pantalla completa');
+            
+        } else {
+            // ENTRAR EN PANTALLA COMPLETA
+            const elem = document.documentElement;
+            
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else {
+                // Método alternativo para móviles
+                hideAddressBar();
+                return;
+            }
+            
+            // Cambiar ícono a contraer
+            if (icon) {
+                icon.className = 'fas fa-compress';
+            }
+            
+            console.log('🔲 Entrando en pantalla completa');
+        }
         
     } catch (error) {
-        console.log('❌ Error al activar pantalla completa:', error);
-        
-        // Método alternativo - ocultar elementos del navegador
+        console.log('❌ Error con pantalla completa:', error);
         hideAddressBar();
     }
 }
 
-// FUNCIÓN ALTERNATIVA PARA MÓVILES QUE NO SOPORTAN FULLSCREEN
+// FUNCIÓN ALTERNATIVA PARA MÓVILES
 function hideAddressBar() {
-    // Ocultar barra de direcciones en móviles
     window.scrollTo(0, 1);
     
-    // Agregar estilos para simular pantalla completa
-    document.body.style.height = '100vh';
-    document.body.style.overflow = 'hidden';
-    
-    console.log('📱 Aplicando modo pseudo-pantalla completa para móvil');
-    
-    // Mostrar mensaje al usuario
     const message = document.createElement('div');
     message.style.cssText = `
         position: fixed;
@@ -103,38 +113,36 @@ function hideAddressBar() {
         font-size: 14px;
         text-align: center;
     `;
-    message.innerHTML = '📱 Para pantalla completa real:<br>Toca el menú de tu navegador<br>y selecciona "Pantalla completa"';
+    message.innerHTML = '📱 Para pantalla completa:<br>Menú del navegador → Pantalla completa';
     
     document.body.appendChild(message);
     
     setTimeout(() => {
-        document.body.removeChild(message);
+        if (document.body.contains(message)) {
+            document.body.removeChild(message);
+        }
     }, 3000);
 }
 
-// Detectar cambios en pantalla completa
-document.addEventListener('fullscreenchange', function() {
-    const icon = document.querySelector('.fullscreen-btn i');
-    if (icon) {
-        if (document.fullscreenElement) {
-            icon.className = 'fas fa-compress';
-        } else {
-            icon.className = 'fas fa-expand';
-        }
-    }
-});
+// Eventos para detectar cambios en pantalla completa
+document.addEventListener('fullscreenchange', updateFullscreenIcon);
+document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 
-// Para otros navegadores
-document.addEventListener('webkitfullscreenchange', function() {
+function updateFullscreenIcon() {
     const icon = document.querySelector('.fullscreen-btn i');
-    if (icon) {
-        if (document.webkitFullscreenElement) {
-            icon.className = 'fas fa-compress';
-        } else {
-            icon.className = 'fas fa-expand';
-        }
+    if (!icon) return;
+    
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
+                           document.mozFullScreenElement || document.msFullscreenElement);
+    
+    if (isFullscreen) {
+        icon.className = 'fas fa-compress';
+    } else {
+        icon.className = 'fas fa-expand';
     }
-});
+}
 
 // Función para inicializar slides
 function initializeSlides() {
@@ -152,11 +160,9 @@ function nextSlide() {
         updateNavigationButtons();
         updateIndicators();
         
-        // Si llegamos al slide del calendario, iniciar observador
         if (currentSlide === 3) {
             startCalendarWatcher();
         } else {
-            // Si salimos del slide del calendario, detener observador y remover botón
             stopCalendarWatcher();
         }
     }
@@ -170,11 +176,9 @@ function previousSlide() {
         updateNavigationButtons();
         updateIndicators();
         
-        // Si llegamos al slide del calendario, iniciar observador
         if (currentSlide === 3) {
             startCalendarWatcher();
         } else {
-            // Si salimos del slide del calendario, detener observador y remover botón
             stopCalendarWatcher();
         }
     }
@@ -188,11 +192,9 @@ function goToSlide(slideNumber) {
         updateNavigationButtons();
         updateIndicators();
         
-        // Si vamos al slide del calendario, iniciar observador
         if (slideNumber === 3) {
             startCalendarWatcher();
         } else {
-            // Si salimos del slide del calendario, detener observador y remover botón
             stopCalendarWatcher();
         }
     }
@@ -238,7 +240,7 @@ function setupIndicatorNavigation() {
     });
 }
 
-// Observador del calendario - MEJORADO
+// Observador del calendario
 function startCalendarWatcher() {
     console.log('🔍 Iniciando observador del calendario...');
     
@@ -247,9 +249,8 @@ function startCalendarWatcher() {
     }
     
     let attempts = 0;
-    const maxAttempts = 180; // 3 minutos de monitoreo
+    const maxAttempts = 180;
     
-    // Crear botón de confirmación manual que aparece después de 10 segundos - SOLO EN EL SLIDE DEL CALENDARIO
     setTimeout(() => {
         if (currentSlide === 3 && !bookingConfirmed) {
             createManualConfirmButton();
@@ -259,7 +260,6 @@ function startCalendarWatcher() {
     confirmationWatcher = setInterval(() => {
         attempts++;
         
-        // SOLO CONTINUAR SI ESTAMOS EN EL SLIDE DEL CALENDARIO
         if (currentSlide !== 3) {
             stopCalendarWatcher();
             return;
@@ -296,7 +296,6 @@ function startCalendarWatcher() {
     }, 1000);
 }
 
-// NUEVA FUNCIÓN: Detener observador del calendario
 function stopCalendarWatcher() {
     if (confirmationWatcher) {
         clearInterval(confirmationWatcher);
@@ -304,18 +303,14 @@ function stopCalendarWatcher() {
         console.log('🛑 Observador del calendario detenido');
     }
     
-    // Remover botón manual si existe
     removeManualConfirmButton();
 }
 
-// Crear botón de confirmación manual - SOLO EN SLIDE CALENDARIO - MÁS PEQUEÑO PARA MÓVIL
 function createManualConfirmButton() {
-    // VERIFICAR QUE ESTEMOS EN EL SLIDE DEL CALENDARIO
     if (currentSlide !== 3) {
         return;
     }
     
-    // Verificar si ya existe
     if (document.getElementById('manual-confirm-btn')) return;
     
     console.log('🔘 Creando botón de confirmación manual...');
@@ -348,7 +343,6 @@ function createManualConfirmButton() {
         </div>
     `;
     
-    // Agregar animación
     const style = document.createElement('style');
     style.id = 'manual-confirm-style';
     style.textContent = `
@@ -369,7 +363,6 @@ function createManualConfirmButton() {
     document.body.appendChild(button);
 }
 
-// Remover botón manual
 function removeManualConfirmButton() {
     const button = document.getElementById('manual-confirm-btn');
     const style = document.getElementById('manual-confirm-style');
@@ -378,7 +371,7 @@ function removeManualConfirmButton() {
     if (style) document.head.removeChild(style);
 }
 
-// Selección de empleado (PRIMERO)
+// Selección de empleado
 function setupEmployeeSelection() {
     const employeeCards = document.querySelectorAll('.employee-card');
     
@@ -418,7 +411,7 @@ function setupEmployeeSelection() {
     });
 }
 
-// Selección de servicios (SEGUNDO)
+// Selección de servicios
 function setupServiceSelection() {
     const serviceCards = document.querySelectorAll('.service-card');
     
@@ -500,16 +493,12 @@ function handleBookingConfirmation() {
     bookingConfirmed = true;
     console.log('✅ Procesando confirmación de reserva...');
     
-    // Detener observador y remover botón manual
     stopCalendarWatcher();
-    
-    // Mostrar mensaje de confirmación
     showConfirmationMessage();
     
-    // Esperar 3 MINUTOS (180000 ms)
     console.log('⏰ Esperando 3 MINUTOS antes de cambiar slide...');
     setTimeout(() => {
-        console.log('🔄 Cambiando al slide de contacto (slide 4) después de 3 minutos');
+        console.log('🔄 Cambiando al slide de contacto después de 3 minutos');
         
         closeConfirmation();
         goToSlide(4);
@@ -530,7 +519,6 @@ function resetSelections() {
     selectedEmployeeName = '';
     bookingConfirmed = false;
     
-    // Detener observador
     stopCalendarWatcher();
     
     document.querySelectorAll('.service-card').forEach(card => {
