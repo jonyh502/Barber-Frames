@@ -38,24 +38,103 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Sistema inicializado correctamente');
 });
 
-// FUNCIÓN DE PANTALLA COMPLETA
-function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().then(() => {
-            // Cambiar ícono a contraer
-            const icon = document.querySelector('.fullscreen-btn i');
+// FUNCIÓN DE PANTALLA COMPLETA MEJORADA PARA MÓVIL
+function enterFullscreen() {
+    try {
+        const elem = document.documentElement;
+        
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        }
+        
+        // Para iOS Safari - simular pantalla completa
+        if (window.navigator.standalone !== undefined) {
+            // Ocultar la barra de direcciones en iOS
+            setTimeout(function() {
+                window.scrollTo(0, 1);
+            }, 0);
+        }
+        
+        // Cambiar ícono
+        const icon = document.querySelector('.fullscreen-btn i');
+        if (icon) {
             icon.className = 'fas fa-compress';
-        }).catch(err => {
-            console.log('Error al activar pantalla completa:', err);
-        });
-    } else {
-        document.exitFullscreen().then(() => {
-            // Cambiar ícono a expandir
-            const icon = document.querySelector('.fullscreen-btn i');
-            icon.className = 'fas fa-expand';
-        });
+        }
+        
+        console.log('🔲 Intentando activar pantalla completa');
+        
+    } catch (error) {
+        console.log('❌ Error al activar pantalla completa:', error);
+        
+        // Método alternativo - ocultar elementos del navegador
+        hideAddressBar();
     }
 }
+
+// FUNCIÓN ALTERNATIVA PARA MÓVILES QUE NO SOPORTAN FULLSCREEN
+function hideAddressBar() {
+    // Ocultar barra de direcciones en móviles
+    window.scrollTo(0, 1);
+    
+    // Agregar estilos para simular pantalla completa
+    document.body.style.height = '100vh';
+    document.body.style.overflow = 'hidden';
+    
+    console.log('📱 Aplicando modo pseudo-pantalla completa para móvil');
+    
+    // Mostrar mensaje al usuario
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        z-index: 10001;
+        font-size: 14px;
+        text-align: center;
+    `;
+    message.innerHTML = '📱 Para pantalla completa real:<br>Toca el menú de tu navegador<br>y selecciona "Pantalla completa"';
+    
+    document.body.appendChild(message);
+    
+    setTimeout(() => {
+        document.body.removeChild(message);
+    }, 3000);
+}
+
+// Detectar cambios en pantalla completa
+document.addEventListener('fullscreenchange', function() {
+    const icon = document.querySelector('.fullscreen-btn i');
+    if (icon) {
+        if (document.fullscreenElement) {
+            icon.className = 'fas fa-compress';
+        } else {
+            icon.className = 'fas fa-expand';
+        }
+    }
+});
+
+// Para otros navegadores
+document.addEventListener('webkitfullscreenchange', function() {
+    const icon = document.querySelector('.fullscreen-btn i');
+    if (icon) {
+        if (document.webkitFullscreenElement) {
+            icon.className = 'fas fa-compress';
+        } else {
+            icon.className = 'fas fa-expand';
+        }
+    }
+});
 
 // Función para inicializar slides
 function initializeSlides() {
@@ -229,7 +308,7 @@ function stopCalendarWatcher() {
     removeManualConfirmButton();
 }
 
-// Crear botón de confirmación manual - SOLO EN SLIDE CALENDARIO
+// Crear botón de confirmación manual - SOLO EN SLIDE CALENDARIO - MÁS PEQUEÑO PARA MÓVIL
 function createManualConfirmButton() {
     // VERIFICAR QUE ESTEMOS EN EL SLIDE DEL CALENDARIO
     if (currentSlide !== 3) {
@@ -246,24 +325,25 @@ function createManualConfirmButton() {
     button.innerHTML = `
         <div style="
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             background: linear-gradient(45deg, #d4af37, #f4c842);
             color: #1a1a1a;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-size: 16px;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
             z-index: 10001;
             animation: bounce 2s infinite;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 3px solid #1a1a1a;
+            gap: 8px;
+            border: 2px solid #1a1a1a;
+            max-width: 200px;
         ">
-            <span style="font-size: 20px;">✅</span>
+            <span style="font-size: 16px;">✅</span>
             <span>¡Mi cita está confirmada!</span>
         </div>
     `;
@@ -274,8 +354,8 @@ function createManualConfirmButton() {
     style.textContent = `
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
         }
     `;
     document.head.appendChild(style);
@@ -481,4 +561,4 @@ window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
 window.goToSlide = goToSlide;
 window.closeConfirmation = closeConfirmation;
-window.toggleFullscreen = toggleFullscreen;
+window.enterFullscreen = enterFullscreen;
