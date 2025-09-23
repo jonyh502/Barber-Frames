@@ -11,10 +11,6 @@
     --text-color: #333;
     --gray-light: #f5f5f5;
     --shadow: 0 2px 10px rgba(0,0,0,0.1);
-    /* Variables para header heights */
-    --header-height-mobile: 42px;
-    --header-height-mobile-landscape: 35px;
-    --header-height-desktop: 70px;
 }
 
 body {
@@ -23,7 +19,8 @@ body {
     color: var(--text-color);
     overflow: hidden;
     -webkit-text-size-adjust: none;
-    background: var(--accent-color);
+    background: var(--secondary-color); /* CAMBIADO: fondo negro para evitar barra blanca */
+    height: 100vh; /* AÑADIDO: altura fija */
 }
 
 .container {
@@ -33,7 +30,7 @@ body {
     width: 100%;
 }
 
-/* Header - RESPONSIVE COMPLETO */
+/* Header - ALTURA FIJA SIMPLE */
 .header {
     background: var(--secondary-color);
     position: fixed;
@@ -41,9 +38,10 @@ body {
     width: 100%;
     z-index: 1000;
     box-shadow: var(--shadow);
-    /* Móvil por defecto */
-    padding: 6px 10px;
-    height: var(--header-height-mobile);
+    height: 60px; /* ALTURA FIJA PARA TODOS LOS DISPOSITIVOS */
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
 }
 
 .navbar {
@@ -52,37 +50,38 @@ body {
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
+    width: 100%;
     height: 100%;
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
-    font-size: 13px;
+    font-size: clamp(14px, 3vw, 24px);
     font-weight: 700;
     color: var(--primary-color);
 }
 
 .nav-brand i {
-    margin-right: 4px;
-    font-size: 14px;
+    margin-right: clamp(4px, 1vw, 10px);
+    font-size: clamp(16px, 4vw, 28px);
 }
 
 .nav-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: clamp(8px, 2vw, 20px);
 }
 
 /* Indicadores */
 .slide-indicators {
     display: flex;
-    gap: 4px;
+    gap: clamp(4px, 1vw, 12px);
 }
 
 .indicator {
-    width: 6px;
-    height: 6px;
+    width: clamp(6px, 1.5vw, 12px);
+    height: clamp(6px, 1.5vw, 12px);
     border-radius: 50%;
     background: rgba(255,255,255,0.3);
     cursor: pointer;
@@ -97,22 +96,22 @@ body {
 /* Botones */
 .nav-arrows {
     display: flex;
-    gap: 4px;
+    gap: clamp(4px, 1vw, 10px);
 }
 
 .nav-btn {
     background: var(--primary-color);
     color: var(--secondary-color);
     border: none;
-    width: 28px;
-    height: 28px;
+    width: clamp(28px, 6vw, 45px);
+    height: clamp(28px, 6vw, 45px);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: clamp(10px, 2.5vw, 16px);
 }
 
 .nav-btn:hover:not(:disabled) {
@@ -128,13 +127,12 @@ body {
     background: #4a4a4a !important;
 }
 
-/* Contenedor de slides - CON PADDING-TOP CORRECTO */
+/* Contenedor de slides - PADDING-TOP FIJO */
 .slides-container {
     height: 100vh;
     position: relative;
     overflow: hidden;
-    /* Móvil por defecto */
-    padding-top: var(--header-height-mobile);
+    padding-top: 60px; /* MISMO VALOR QUE LA ALTURA DEL HEADER */
 }
 
 .slide {
@@ -157,50 +155,50 @@ body {
     transform: translateX(-100%);
 }
 
-/* Hero - RESPONSIVE */
+/* Hero - ALTURA CORREGIDA */
 .hero {
-    height: calc(100vh - var(--header-height-mobile));
+    height: calc(100vh - 60px); /* MISMO VALOR QUE EL PADDING-TOP */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                 linear-gradient(135deg, var(--secondary-color), #2a2a2a);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 15px 10px;
+    padding: 20px 15px;
 }
 
 .hero-content h1 {
-    font-size: 22px;
+    font-size: clamp(24px, 6vw, 56px);
     font-weight: 700;
     color: var(--accent-color);
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    margin-bottom: clamp(12px, 3vw, 20px);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     line-height: 1.2;
 }
 
 .hero-content p {
-    font-size: 13px;
+    font-size: clamp(14px, 3vw, 20px);
     color: var(--accent-color);
-    margin-bottom: 18px;
+    margin-bottom: clamp(20px, 4vw, 30px);
     opacity: 0.9;
-    line-height: 1.3;
-    max-width: 320px;
+    line-height: 1.4;
+    max-width: clamp(320px, 80vw, 600px);
 }
 
 .btn-primary {
     background: var(--primary-color);
     color: var(--secondary-color);
-    padding: 10px 20px;
+    padding: clamp(10px, 2.5vw, 15px) clamp(20px, 4vw, 30px);
     border: none;
     border-radius: 25px;
     font-weight: 600;
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 16px);
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: clamp(6px, 1.5vw, 10px);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -208,31 +206,31 @@ body {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-/* Empleados - RESPONSIVE */
+/* Empleados - ALTURA CORREGIDA */
 .employee-selection {
-    height: calc(100vh - var(--header-height-mobile));
+    height: calc(100vh - 60px);
     background: var(--accent-color);
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 20px 0;
     overflow-y: auto;
 }
 
 .employee-selection h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: clamp(20px, 5vw, 42px);
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 8px;
+    margin-bottom: clamp(8px, 2vw, 20px);
     flex-shrink: 0;
 }
 
 .subtitle {
     text-align: center;
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 18px);
     color: var(--text-color);
     opacity: 0.8;
-    margin-bottom: 15px;
+    margin-bottom: clamp(15px, 4vw, 30px);
     line-height: 1.3;
     flex-shrink: 0;
 }
@@ -240,27 +238,57 @@ body {
 /* GRID RESPONSIVE */
 .employees-grid {
     display: grid;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: clamp(10px, 2.5vw, 25px);
+    margin-bottom: clamp(15px, 3vw, 30px);
     width: 100%;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    /* Móvil vertical - 2 columnas */
-    grid-template-columns: 1fr 1fr;
-    max-width: 350px;
     flex: 1;
+    /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Móvil específico */
+@media (max-width: 767px) {
+    .employees-grid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 350px;
+    }
+}
+
+/* Móvil horizontal */
+@media (orientation: landscape) and (max-height: 500px) {
+    .employees-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        max-width: 500px !important;
+        gap: 8px !important;
+    }
+    
+    .employee-selection,
+    .services {
+        padding: 10px 0 !important;
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 350px) {
+    .employees-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+    }
 }
 
 .employee-card {
     background: var(--accent-color);
-    padding: 10px;
-    border-radius: 12px;
+    padding: clamp(10px, 2.5vw, 25px);
+    border-radius: clamp(12px, 2vw, 20px);
     text-align: center;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     border: 2px solid transparent;
     cursor: pointer;
-    min-height: 160px;
+    min-height: clamp(160px, 35vw, 300px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -276,10 +304,10 @@ body {
 }
 
 .employee-photo {
-    width: 40px;
-    height: 40px;
+    width: clamp(40px, 8vw, 80px);
+    height: clamp(40px, 8vw, 80px);
     border-radius: 50%;
-    margin: 0 auto 8px;
+    margin: 0 auto clamp(8px, 2vw, 15px);
     border: 2px solid var(--primary-color);
     display: flex;
     align-items: center;
@@ -288,15 +316,15 @@ body {
 }
 
 .employee-avatar {
-    width: 36px;
-    height: 36px;
+    width: clamp(36px, 7vw, 70px);
+    height: clamp(36px, 7vw, 70px);
     border-radius: 50%;
     background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-color);
-    font-size: 12px;
+    font-size: clamp(12px, 2.5vw, 20px);
     font-weight: bold;
 }
 
@@ -309,23 +337,23 @@ body {
 }
 
 .employee-photo.any i {
-    font-size: 18px;
+    font-size: clamp(18px, 4vw, 35px);
     color: var(--accent-color);
 }
 
 .employee-card h3 {
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 20px);
     font-weight: 600;
     color: var(--secondary-color);
-    margin-bottom: 4px;
+    margin-bottom: clamp(4px, 1vw, 10px);
     line-height: 1.2;
 }
 
 .employee-specialty {
     color: var(--text-color);
     opacity: 0.8;
-    margin-bottom: 6px;
-    font-size: 10px;
+    margin-bottom: clamp(6px, 1.5vw, 12px);
+    font-size: clamp(10px, 2vw, 14px);
     line-height: 1.2;
 }
 
@@ -333,26 +361,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2px;
-    margin-bottom: 6px;
+    gap: clamp(2px, 0.5vw, 4px);
+    margin-bottom: clamp(6px, 1.5vw, 12px);
 }
 
 .employee-rating i {
     color: #ffc107;
-    font-size: 9px;
+    font-size: clamp(9px, 2vw, 14px);
 }
 
 .employee-rating span {
-    font-size: 9px;
+    font-size: clamp(9px, 2vw, 14px);
     color: var(--text-color);
     opacity: 0.8;
-    margin-left: 3px;
+    margin-left: clamp(3px, 0.5vw, 6px);
 }
 
 .employee-experience {
     color: var(--primary-color);
     font-weight: 600;
-    font-size: 10px;
+    font-size: clamp(10px, 2vw, 14px);
 }
 
 .any-employee {
@@ -370,47 +398,68 @@ body {
     color: var(--accent-color);
 }
 
-/* Servicios - RESPONSIVE */
+/* Servicios - MISMA ESTRUCTURA */
 .services {
-    height: calc(100vh - var(--header-height-mobile));
+    height: calc(100vh - 60px);
     background: var(--gray-light);
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 20px 0;
     overflow-y: auto;
 }
 
 .services h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: clamp(20px, 5vw, 42px);
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 15px;
+    margin-bottom: clamp(15px, 3vw, 30px);
     flex-shrink: 0;
 }
 
 .services-grid {
     display: grid;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: clamp(10px, 2.5vw, 25px);
+    margin-bottom: clamp(15px, 3vw, 30px);
     margin-left: auto;
     margin-right: auto;
-    /* Móvil vertical - 2 columnas */
-    grid-template-columns: 1fr 1fr;
-    max-width: 350px;
     flex: 1;
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (max-width: 767px) {
+    .services-grid {
+        grid-template-columns: 1fr 1fr;
+        max-width: 350px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        max-width: 500px !important;
+        gap: 8px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+    }
 }
 
 .service-card {
     background: var(--accent-color);
-    padding: 10px;
-    border-radius: 12px;
+    padding: clamp(10px, 2.5vw, 25px);
+    border-radius: clamp(12px, 2vw, 20px);
     text-align: center;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     border: 2px solid transparent;
     cursor: pointer;
-    min-height: 140px;
+    min-height: clamp(140px, 30vw, 280px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -426,69 +475,69 @@ body {
 }
 
 .service-card i {
-    font-size: 28px;
+    font-size: clamp(28px, 6vw, 50px);
     color: var(--primary-color);
-    margin-bottom: 8px;
+    margin-bottom: clamp(8px, 2vw, 15px);
 }
 
 .service-card h3 {
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 20px);
     font-weight: 600;
     color: var(--secondary-color);
-    margin-bottom: 6px;
+    margin-bottom: clamp(6px, 1.5vw, 10px);
     line-height: 1.2;
 }
 
 .service-card p {
     color: var(--text-color);
-    margin-bottom: 8px;
+    margin-bottom: clamp(8px, 2vw, 12px);
     opacity: 0.8;
-    font-size: 10px;
+    font-size: clamp(10px, 2vw, 14px);
     line-height: 1.2;
 }
 
 .price {
-    font-size: 13px;
+    font-size: clamp(13px, 3vw, 22px);
     font-weight: 700;
     color: var(--primary-color);
 }
 
-/* Booking - RESPONSIVE */
+/* Booking */
 .booking {
-    height: calc(100vh - var(--header-height-mobile));
+    height: calc(100vh - 60px);
     background: var(--accent-color);
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
+    padding: 20px 0;
     overflow: hidden;
 }
 
 .booking-header {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: clamp(12px, 3vw, 20px);
     flex-shrink: 0;
 }
 
 .booking-header h2 {
-    font-size: 18px;
+    font-size: clamp(20px, 5vw, 42px);
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 10px;
+    margin-bottom: clamp(10px, 2vw, 15px);
 }
 
 .booking-header p {
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 16px);
     color: var(--text-color);
     opacity: 0.8;
 }
 
 #booking-summary {
     background: var(--gray-light);
-    padding: 8px 10px;
+    padding: clamp(8px, 2vw, 15px) clamp(10px, 2.5vw, 20px);
     border-radius: 8px;
     border-left: 3px solid var(--primary-color);
-    font-size: 11px;
-    margin-bottom: 12px;
+    font-size: clamp(11px, 2.5vw, 16px);
+    margin-bottom: clamp(12px, 3vw, 20px);
 }
 
 #booking-summary span {
@@ -510,78 +559,91 @@ body {
 .calendar-container iframe {
     width: 100%;
     height: 100%;
-    min-height: 320px;
+    min-height: clamp(320px, 50vh, 600px);
 }
 
-/* Contacto - RESPONSIVE */
+/* Contacto */
 .contact {
-    height: calc(100vh - var(--header-height-mobile));
+    height: calc(100vh - 60px);
     background: linear-gradient(135deg, var(--secondary-color), #2a2a2a);
     display: flex;
     align-items: center;
     color: var(--accent-color);
-    padding: 15px 0;
+    padding: 20px 0;
     overflow-y: auto;
 }
 
 .contact-content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: clamp(20px, 4vw, 40px);
     text-align: center;
     width: 100%;
 }
 
+@media (min-width: 768px) {
+    .contact-content {
+        grid-template-columns: 2fr 1fr;
+        text-align: left;
+    }
+}
+
 .contact h2 {
-    font-size: 18px;
+    font-size: clamp(20px, 5vw, 42px);
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 15px;
+    margin-bottom: clamp(15px, 3vw, 25px);
 }
 
 .contact-details {
     display: grid;
-    gap: 12px;
+    gap: clamp(12px, 2.5vw, 20px);
 }
 
 .contact-item {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: clamp(10px, 2vw, 15px);
     justify-content: center;
 }
 
+@media (min-width: 768px) {
+    .contact-item {
+        justify-content: flex-start;
+    }
+}
+
 .contact-item i {
-    font-size: 16px;
+    font-size: clamp(16px, 3vw, 22px);
     color: var(--primary-color);
     margin-top: 2px;
     flex-shrink: 0;
 }
 
 .contact-item h3 {
-    font-size: 13px;
+    font-size: clamp(13px, 3vw, 18px);
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 3px;
+    margin-bottom: clamp(3px, 1vw, 8px);
 }
 
 .contact-item p {
     color: var(--accent-color);
     opacity: 0.9;
-    font-size: 12px;
+    font-size: clamp(12px, 2.5vw, 16px);
     line-height: 1.3;
 }
 
 .contact-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: clamp(10px, 2vw, 15px);
 }
 
 .btn-whatsapp {
     background: #25d366;
     color: var(--accent-color);
-    padding: 12px 20px;
+    padding: clamp(12px, 2.5vw, 15px) clamp(20px, 4vw, 25px);
     border-radius: 25px;
     text-decoration: none;
     font-weight: 600;
@@ -590,8 +652,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 12px;
+    gap: clamp(8px, 1.5vw, 10px);
+    font-size: clamp(12px, 2.5vw, 16px);
 }
 
 .btn-whatsapp:hover {
@@ -603,7 +665,7 @@ body {
     background: transparent;
     color: var(--accent-color);
     border: 2px solid var(--primary-color);
-    padding: 10px 20px;
+    padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 25px);
     border-radius: 25px;
     font-weight: 600;
     cursor: pointer;
@@ -611,8 +673,8 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 12px;
+    gap: clamp(8px, 1.5vw, 10px);
+    font-size: clamp(12px, 2.5vw, 16px);
 }
 
 .btn-secondary:hover {
@@ -623,22 +685,22 @@ body {
 /* Acciones de slide */
 .slide-actions {
     text-align: center;
-    margin-top: 12px;
+    margin-top: clamp(12px, 3vw, 20px);
     flex-shrink: 0;
 }
 
 .selection-text {
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 18px);
     color: var(--text-color);
-    margin-bottom: 6px;
+    margin-bottom: clamp(6px, 1.5vw, 10px);
     opacity: 0.8;
 }
 
 .auto-advance-text {
-    font-size: 10px;
+    font-size: clamp(10px, 2vw, 14px);
     color: var(--primary-color);
     font-style: italic;
-    margin-top: 4px;
+    margin-top: clamp(4px, 1vw, 8px);
     opacity: 0.8;
 }
 
@@ -680,45 +742,45 @@ body {
 
 .confirmation-content {
     background: var(--accent-color);
-    padding: 20px;
+    padding: clamp(20px, 4vw, 30px);
     border-radius: 15px;
     text-align: center;
-    max-width: 380px;
+    max-width: clamp(350px, 80vw, 500px);
     width: 100%;
     box-shadow: 0 10px 50px rgba(0,0,0,0.3);
 }
 
 .confirmation-content i {
-    font-size: 36px;
+    font-size: clamp(36px, 6vw, 50px);
     color: #4CAF50;
-    margin-bottom: 12px;
+    margin-bottom: clamp(12px, 2vw, 20px);
 }
 
 .confirmation-content h3 {
-    font-size: 18px;
+    font-size: clamp(18px, 4vw, 24px);
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 10px;
+    margin-bottom: clamp(10px, 2vw, 15px);
 }
 
 .confirmation-content p {
-    font-size: 13px;
+    font-size: clamp(13px, 3vw, 16px);
     color: var(--text-color);
-    margin-bottom: 15px;
+    margin-bottom: clamp(15px, 3vw, 20px);
     line-height: 1.4;
 }
 
 .confirmation-details {
     background: var(--gray-light);
-    padding: 12px;
+    padding: clamp(12px, 3vw, 18px);
     border-radius: 8px;
-    margin: 15px 0;
+    margin: clamp(15px, 3vw, 20px) 0;
     text-align: left;
 }
 
 .confirmation-details p {
-    margin-bottom: 4px;
-    font-size: 11px;
+    margin-bottom: clamp(4px, 1vw, 6px);
+    font-size: clamp(11px, 2.5vw, 14px);
     line-height: 1.3;
 }
 
@@ -727,365 +789,51 @@ body {
     font-weight: 600;
 }
 
-/* MÓVIL HORIZONTAL - Ajustes específicos */
+/* Móvil horizontal - ajustes compactos */
 @media (orientation: landscape) and (max-height: 500px) {
-    .header {
-        height: var(--header-height-mobile-landscape);
-        padding: 4px 8px;
-    }
-    
-    .slides-container {
-        padding-top: var(--header-height-mobile-landscape);
-    }
-    
-    .hero,
-    .employee-selection,
-    .services,
-    .booking,
-    .contact {
-        height: calc(100vh - var(--header-height-mobile-landscape));
-        padding: 8px 0;
-    }
-    
-    .employees-grid,
-    .services-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 500px;
-        gap: 8px;
-    }
-    
     .employee-card,
     .service-card {
-        min-height: 100px;
-        padding: 6px;
+        min-height: 100px !important;
+        padding: 6px !important;
     }
     
     .employee-photo {
-        width: 30px;
-        height: 30px;
-        margin-bottom: 4px;
+        width: 30px !important;
+        height: 30px !important;
+        margin-bottom: 4px !important;
     }
     
     .employee-avatar {
-        width: 26px;
-        height: 26px;
-        font-size: 9px;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 9px !important;
     }
     
     .employee-card h3,
     .service-card h3 {
-        font-size: 10px;
-        margin-bottom: 2px;
+        font-size: 10px !important;
+        margin-bottom: 2px !important;
     }
     
     .employee-specialty,
     .service-card p {
-        font-size: 8px;
-        margin-bottom: 3px;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
     }
     
     .service-card i {
-        font-size: 20px;
-        margin-bottom: 4px;
+        font-size: 20px !important;
+        margin-bottom: 4px !important;
     }
     
     .hero-content h1 {
-        font-size: 18px;
-    }
-    
-    .hero-content p {
-        font-size: 11px;
-        margin-bottom: 12px;
+        font-size: 18px !important;
     }
     
     .employee-selection h2,
     .services h2,
     .booking-header h2 {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-    
-    .nav-brand {
-        font-size: 11px;
-    }
-    
-    .nav-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 8px;
-    }
-}
-
-/* PANTALLAS MUY PEQUEÑAS */
-@media (max-width: 320px) {
-    .employees-grid,
-    .services-grid {
-        grid-template-columns: 1fr;
-        max-width: 280px;
-    }
-    
-    .nav-brand span {
-        display: none;
-    }
-}
-
-/* TABLETS Y PC - RESPONSIVE COMPLETO */
-@media (min-width: 768px) {
-    body {
-        font-size: 16px;
-    }
-    
-    .header {
-        height: var(--header-height-desktop);
-        padding: 15px 20px;
-    }
-    
-    .slides-container {
-        padding-top: var(--header-height-desktop);
-    }
-    
-    .hero,
-    .employee-selection,
-    .services,
-    .booking,
-    .contact {
-        height: calc(100vh - var(--header-height-desktop));
-        padding: 40px 0;
-    }
-    
-    .nav-brand {
-        font-size: 24px;
-    }
-    
-    .nav-brand i {
-        font-size: 28px;
-        margin-right: 10px;
-    }
-    
-    .nav-controls {
-        gap: 20px;
-    }
-    
-    .slide-indicators {
-        gap: 12px;
-    }
-    
-    .indicator {
-        width: 12px;
-        height: 12px;
-    }
-    
-    .nav-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 16px;
-    }
-    
-    .nav-arrows {
-        gap: 10px;
-    }
-    
-    .hero-content h1 {
-        font-size: 56px;
-        margin-bottom: 20px;
-    }
-    
-    .hero-content p {
-        font-size: 20px;
-        margin-bottom: 30px;
-        max-width: 600px;
-    }
-    
-    .btn-primary {
-        padding: 15px 30px;
-        font-size: 16px;
-        gap: 10px;
-    }
-    
-    .employee-selection h2,
-    .services h2,
-    .booking-header h2,
-    .contact h2 {
-        font-size: 42px;
-        margin-bottom: 20px;
-    }
-    
-    .subtitle {
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
-    
-    .employees-grid,
-    .services-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1000px;
-        gap: 25px;
-    }
-    
-    .employee-card,
-    .service-card {
-        min-height: 300px;
-        padding: 25px;
-        border-radius: 20px;
-    }
-    
-    .employee-photo {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 15px;
-    }
-    
-    .employee-avatar {
-        width: 70px;
-        height: 70px;
-        font-size: 20px;
-    }
-    
-    .employee-photo.any i {
-        font-size: 35px;
-    }
-    
-    .employee-card h3,
-    .service-card h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-    
-    .employee-specialty,
-    .service-card p {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-    
-    .employee-rating i,
-    .employee-rating span {
-        font-size: 14px;
-    }
-    
-    .employee-experience {
-        font-size: 14px;
-    }
-    
-    .service-card i {
-        font-size: 50px;
-        margin-bottom: 15px;
-    }
-    
-    .price {
-        font-size: 22px;
-    }
-    
-    .booking-header p {
-        font-size: 16px;
-    }
-    
-    #booking-summary {
-        padding: 15px 20px;
-        font-size: 16px;
-        margin-bottom: 20px;
-    }
-    
-    .calendar-container iframe {
-        min-height: 600px;
-    }
-    
-    .contact-content {
-        grid-template-columns: 2fr 1fr;
-        gap: 40px;
-        text-align: left;
-    }
-    
-    .contact-item {
-        justify-content: flex-start;
-    }
-    
-    .contact-item i {
-        font-size: 22px;
-    }
-    
-    .contact-item h3 {
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-    
-    .contact-item p {
-        font-size: 16px;
-    }
-    
-    .btn-whatsapp,
-    .btn-secondary {
-        padding: 15px 25px;
-        font-size: 16px;
-        gap: 10px;
-    }
-    
-    .slide-actions {
-        margin-top: 20px;
-    }
-    
-    .selection-text {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-    
-    .auto-advance-text {
-        font-size: 14px;
-        margin-top: 8px;
-    }
-    
-    .confirmation-content {
-        max-width: 500px;
-        padding: 30px;
-    }
-    
-    .confirmation-content i {
-        font-size: 50px;
-        margin-bottom: 20px;
-    }
-    
-    .confirmation-content h3 {
-        font-size: 24px;
-        margin-bottom: 15px;
-    }
-    
-    .confirmation-content p {
-        font-size: 16px;
-        margin-bottom: 20px;
-    }
-    
-    .confirmation-details {
-        padding: 18px;
-        margin: 20px 0;
-    }
-    
-    .confirmation-details p {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-}
-
-/* DESKTOP GRANDE */
-@media (min-width: 1200px) {
-    .employees-grid,
-    .services-grid {
-        max-width: 1200px;
-        gap: 30px;
-    }
-    
-    .employee-card,
-    .service-card {
-        min-height: 320px;
-        padding: 30px;
-    }
-    
-    .hero-content h1 {
-        font-size: 64px;
-    }
-    
-    .employee-selection h2,
-    .services h2,
-    .booking-header h2,
-    .contact h2 {
-        font-size: 48px;
+        font-size: 14px !important;
+        margin-bottom: 6px !important;
     }
 }
