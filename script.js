@@ -9,6 +9,54 @@ let confirmationWatcher = null;
 
 const totalSlides = 5;
 
+// Inicialización cuando se carga la página
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Página cargada - Inicializando sistema');
+    
+    initializeSlides();
+    setupEmployeeSelection();
+    setupServiceSelection();
+    setupIndicatorNavigation();
+    
+    const newReservationBtn = document.querySelector('.btn-secondary');
+    if (newReservationBtn) {
+        newReservationBtn.addEventListener('click', function() {
+            resetSelections();
+        });
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight') {
+            nextSlide();
+        } else if (event.key === 'ArrowLeft') {
+            previousSlide();
+        } else if (event.key === 'Escape') {
+            closeConfirmation();
+        }
+    });
+    
+    console.log('✅ Sistema inicializado correctamente');
+});
+
+// FUNCIÓN DE PANTALLA COMPLETA
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+            // Cambiar ícono a contraer
+            const icon = document.querySelector('.fullscreen-btn i');
+            icon.className = 'fas fa-compress';
+        }).catch(err => {
+            console.log('Error al activar pantalla completa:', err);
+        });
+    } else {
+        document.exitFullscreen().then(() => {
+            // Cambiar ícono a expandir
+            const icon = document.querySelector('.fullscreen-btn i');
+            icon.className = 'fas fa-expand';
+        });
+    }
+}
+
 // Función para inicializar slides
 function initializeSlides() {
     updateSlideVisibility();
@@ -28,6 +76,9 @@ function nextSlide() {
         // Si llegamos al slide del calendario, iniciar observador
         if (currentSlide === 3) {
             startCalendarWatcher();
+        } else {
+            // Si salimos del slide del calendario, detener observador y remover botón
+            stopCalendarWatcher();
         }
     }
 }
@@ -39,6 +90,14 @@ function previousSlide() {
         updateSlideVisibility();
         updateNavigationButtons();
         updateIndicators();
+        
+        // Si llegamos al slide del calendario, iniciar observador
+        if (currentSlide === 3) {
+            startCalendarWatcher();
+        } else {
+            // Si salimos del slide del calendario, detener observador y remover botón
+            stopCalendarWatcher();
+        }
     }
 }
 
@@ -53,6 +112,9 @@ function goToSlide(slideNumber) {
         // Si vamos al slide del calendario, iniciar observador
         if (slideNumber === 3) {
             startCalendarWatcher();
+        } else {
+            // Si salimos del slide del calendario, detener observador y remover botón
+            stopCalendarWatcher();
         }
     }
 }
@@ -97,7 +159,7 @@ function setupIndicatorNavigation() {
     });
 }
 
-// Observador del calendario
+// Observador del calendario - MEJORADO
 function startCalendarWatcher() {
     console.log('🔍 Iniciando observador del calendario...');
     
@@ -108,7 +170,7 @@ function startCalendarWatcher() {
     let attempts = 0;
     const maxAttempts = 180; // 3 minutos de monitoreo
     
-    // Crear botón de confirmación manual que aparece después de 10 segundos
+    // Crear botón de confirmación manual que aparece después de 10 segundos - SOLO EN EL SLIDE DEL CALENDARIO
     setTimeout(() => {
         if (currentSlide === 3 && !bookingConfirmed) {
             createManualConfirmButton();
@@ -117,6 +179,12 @@ function startCalendarWatcher() {
     
     confirmationWatcher = setInterval(() => {
         attempts++;
+        
+        // SOLO CONTINUAR SI ESTAMOS EN EL SLIDE DEL CALENDARIO
+        if (currentSlide !== 3) {
+            stopCalendarWatcher();
+            return;
+        }
         
         try {
             const iframe = document.getElementById('calendar-iframe');
@@ -133,8 +201,7 @@ function startCalendarWatcher() {
                     bodyText.includes('confirmada')) {
                     
                     console.log('✅ ¡CONFIRMACIÓN AUTO-DETECTADA!');
-                    clearInterval(confirmationWatcher);
-                    confirmationWatcher = null;
+                    stopCalendarWatcher();
                     handleBookingConfirmation();
                     return;
                 }
@@ -145,14 +212,30 @@ function startCalendarWatcher() {
         
         if (attempts >= maxAttempts) {
             console.log('⏰ Tiempo de observación agotado');
-            clearInterval(confirmationWatcher);
-            confirmationWatcher = null;
+            stopCalendarWatcher();
         }
     }, 1000);
 }
 
-// Crear botón de confirmación manual
+// NUEVA FUNCIÓN: Detener observador del calendario
+function stopCalendarWatcher() {
+    if (confirmationWatcher) {
+        clearInterval(confirmationWatcher);
+        confirmationWatcher = null;
+        console.log('🛑 Observador del calendario detenido');
+    }
+    
+    // Remover botón manual si existe
+    removeManualConfirmButton();
+}
+
+// Crear botón de confirmación manual - SOLO EN SLIDE CALENDARIO
 function createManualConfirmButton() {
+    // VERIFICAR QUE ESTEMOS EN EL SLIDE DEL CALENDARIO
+    if (currentSlide !== 3) {
+        return;
+    }
+    
     // Verificar si ya existe
     if (document.getElementById('manual-confirm-btn')) return;
     
@@ -325,7 +408,7 @@ function closeConfirmation() {
     }
 }
 
-// Manejar confirmación de reserva - CAMBIO PRINCIPAL: 3 MINUTOS EN VEZ DE 3 SEGUNDOS
+// Manejar confirmación de reserva - 3 MINUTOS
 function handleBookingConfirmation() {
     console.log('🎉 handleBookingConfirmation() ejecutada');
     
@@ -337,19 +420,13 @@ function handleBookingConfirmation() {
     bookingConfirmed = true;
     console.log('✅ Procesando confirmación de reserva...');
     
-    // Remover botón manual si existe
-    removeManualConfirmButton();
-    
-    // Detener observador si está activo
-    if (confirmationWatcher) {
-        clearInterval(confirmationWatcher);
-        confirmationWatcher = null;
-    }
+    // Detener observador y remover botón manual
+    stopCalendarWatcher();
     
     // Mostrar mensaje de confirmación
     showConfirmationMessage();
     
-    // CAMBIO PRINCIPAL: Esperar 3 MINUTOS (180000 ms) en vez de 3 segundos
+    // Esperar 3 MINUTOS (180000 ms)
     console.log('⏰ Esperando 3 MINUTOS antes de cambiar slide...');
     setTimeout(() => {
         console.log('🔄 Cambiando al slide de contacto (slide 4) después de 3 minutos');
@@ -362,7 +439,7 @@ function handleBookingConfirmation() {
             bookingConfirmed = false;
         }, 5000);
         
-    }, 180000); // 180000 ms = 3 minutos
+    }, 180000); // 3 minutos
 }
 
 // Función para resetear selecciones
@@ -374,13 +451,7 @@ function resetSelections() {
     bookingConfirmed = false;
     
     // Detener observador
-    if (confirmationWatcher) {
-        clearInterval(confirmationWatcher);
-        confirmationWatcher = null;
-    }
-    
-    // Remover botón manual
-    removeManualConfirmButton();
+    stopCalendarWatcher();
     
     document.querySelectorAll('.service-card').forEach(card => {
         card.classList.remove('selected', 'confirmed', 'selecting');
@@ -399,35 +470,6 @@ function resetSelections() {
     if (barberName) barberName.textContent = 'tu barbero';
 }
 
-// Inicialización cuando se carga la página
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Página cargada - Inicializando sistema');
-    
-    initializeSlides();
-    setupEmployeeSelection();
-    setupServiceSelection();
-    setupIndicatorNavigation();
-    
-    const newReservationBtn = document.querySelector('.btn-secondary');
-    if (newReservationBtn) {
-        newReservationBtn.addEventListener('click', function() {
-            resetSelections();
-        });
-    }
-    
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'ArrowRight') {
-            nextSlide();
-        } else if (event.key === 'ArrowLeft') {
-            previousSlide();
-        } else if (event.key === 'Escape') {
-            closeConfirmation();
-        }
-    });
-    
-    console.log('✅ Sistema inicializado correctamente');
-});
-
 // Función manual para testing
 window.testBookingConfirmation = function() {
     console.log('🧪 Ejecutando confirmación de prueba manual...');
@@ -439,3 +481,4 @@ window.nextSlide = nextSlide;
 window.previousSlide = previousSlide;
 window.goToSlide = goToSlide;
 window.closeConfirmation = closeConfirmation;
+window.toggleFullscreen = toggleFullscreen;
