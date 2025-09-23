@@ -31,6 +31,10 @@
                     <button class="nav-btn next-btn" onclick="nextSlide()">
                         <i class="fas fa-chevron-right"></i>
                     </button>
+                    <!-- BOTÓN DE PANTALLA COMPLETA -->
+                    <button class="nav-btn fullscreen-btn" onclick="toggleFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -253,7 +257,7 @@
 
     </div>
 
-    <!-- Mensaje de confirmación ACTUALIZADO -->
+    <!-- Mensaje de confirmación -->
     <div id="confirmation-message" class="confirmation-hidden">
         <div class="confirmation-content">
             <i class="fas fa-check-circle"></i>
@@ -267,7 +271,6 @@
                 <p>📞 WhatsApp: +57 300 123 4567</p>
             </div>
             <div class="confirmation-actions">
-                <!-- SOLO QUEDA UN BOTÓN -->
                 <button onclick="closeConfirmation()" class="btn-primary">Perfecto</button>
             </div>
         </div>
