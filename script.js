@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Sistema inicializado correctamente');
 });
 
-// FUNCIÓN DE PANTALLA COMPLETA CORREGIDA - CON TOGGLE
+// FUNCIÓN DE PANTALLA COMPLETA CORREGIDA
 function enterFullscreen() {
     try {
         const icon = document.querySelector('.fullscreen-btn i');
@@ -56,7 +56,6 @@ function enterFullscreen() {
                 document.mozCancelFullScreen();
             }
             
-            // Cambiar ícono a expandir
             if (icon) {
                 icon.className = 'fas fa-expand';
             }
@@ -76,12 +75,10 @@ function enterFullscreen() {
             } else if (elem.mozRequestFullScreen) {
                 elem.mozRequestFullScreen();
             } else {
-                // Método alternativo para móviles
                 hideAddressBar();
                 return;
             }
             
-            // Cambiar ícono a contraer
             if (icon) {
                 icon.className = 'fas fa-compress';
             }
@@ -533,20 +530,4 @@ function resetSelections() {
     const slide2Text = document.querySelector('#slide-2 .selection-text');
     const barberName = document.getElementById('selected-barber-name');
     
-    if (slide1Text) slide1Text.textContent = 'Selecciona tu barbero preferido';
-    if (slide2Text) slide2Text.textContent = 'Selecciona el servicio que deseas';
-    if (barberName) barberName.textContent = 'tu barbero';
-}
-
-// Función manual para testing
-window.testBookingConfirmation = function() {
-    console.log('🧪 Ejecutando confirmación de prueba manual...');
-    handleBookingConfirmation();
-};
-
-// Hacer las funciones accesibles globalmente
-window.nextSlide = nextSlide;
-window.previousSlide = previousSlide;
-window.goToSlide = goToSlide;
-window.closeConfirmation = closeConfirmation;
-window.enterFullscreen = enterFullscreen;
+    if (slide1Text) slide1Text.textContent = 'Selecciona tu barbero prefer
