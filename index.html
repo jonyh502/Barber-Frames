@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberShop Elite - Reserva tu cita</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header fijo -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-cut"></i>
+                <span>BarberShop Elite</span>
+            </div>
+            <div class="nav-controls">
+                <div class="slide-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                    <span class="indicator" data-slide="4"></span>
+                </div>
+                <div class="nav-arrows">
+                    <button class="nav-btn prev-btn" onclick="previousSlide()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next-btn" onclick="nextSlide()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenedor principal de slides -->
+    <div class="slides-container">
+        
+        <!-- Slide 1: Hero -->
+        <section class="slide active" id="slide-0">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>El Corte Perfecto Te Espera</h1>
+                    <p>Profesionales expertos en barbería masculina con más de 10 años de experiencia</p>
+                    <button class="btn-primary" onclick="nextSlide()">Comenzar Reserva</button>
+                </div>
+                <div class="hero-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Seleccionar Empleado -->
+        <section class="slide" id="slide-1">
+            <div class="employee-selection">
+                <div class="container">
+                    <h2>Elige tu Barbero</h2>
+                    <p class="subtitle">Selecciona el profesional de tu preferencia</p>
+                    
+                    <div class="employees-grid">
+                        <div class="employee-card" data-employee="carlos">
+                            <div class="employee-photo">
+                                <div class="employee-avatar carlos"></div>
+                            </div>
+                            <h3>Carlos Mendoza</h3>
+                            <p class="employee-specialty">Especialista en cortes clásicos</p>
+                            <div class="employee-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (127 reseñas)</span>
+                            </div>
+                            <p class="employee-experience">8 años de experiencia</p>
+                        </div>
+
+                        <div class="employee-card" data-employee="miguel">
+                            <div class="employee-photo">
+                                <div class="employee-avatar miguel"></div>
+                            </div>
+                            <h3>Miguel Torres</h3>
+                            <p class="employee-specialty">Experto en barbas y bigotes</p>
+                            <div class="employee-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (95 reseñas)</span>
+                            </div>
+                            <p class="employee-experience">6 años de experiencia</p>
+                        </div>
+
+                        <div class="employee-card" data-employee="andres">
+                            <div class="employee-photo">
+                                <div class="employee-avatar andres"></div>
+                            </div>
+                            <h3>Andrés Vázquez</h3>
+                            <p class="employee-specialty">Cortes modernos y tendencias</p>
+                            <div class="employee-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (143 reseñas)</span>
+                            </div>
+                            <p class="employee-experience">10 años de experiencia</p>
+                        </div>
+
+                        <div class="employee-card any-employee" data-employee="cualquiera">
+                            <div class="employee-photo any">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Cualquier Barbero</h3>
+                            <p class="employee-specialty">El próximo disponible</p>
+                            <div class="employee-rating">
+                                <span>Horarios más flexibles</span>
+                            </div>
+                            <p class="employee-experience">Todos nuestros profesionales</p>
+                        </div>
+                    </div>
+
+                    <div class="slide-actions">
+                        <p class="selection-text">Selecciona tu barbero preferido</p>
+                        <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Servicios -->
+        <section class="slide" id="slide-2">
+            <div class="services">
+                <div class="container">
+                    <h2>Nuestros Servicios</h2>
+                    <p class="subtitle">¿Qué servicio deseas con <span id="selected-barber-name">tu barbero</span>?</p>
+                    <div class="services-grid">
+                        <div class="service-card" data-service="corte-clasico">
+                            <i class="fas fa-cut"></i>
+                            <h3>Corte Clásico</h3>
+                            <p>Cortes tradicionales con técnicas modernas</p>
+                            <span class="price">$25.000</span>
+                        </div>
+                        <div class="service-card" data-service="afeitado-premium">
+                            <i class="fas fa-spa"></i>
+                            <h3>Afeitado Premium</h3>
+                            <p>Afeitado con navaja y tratamiento facial</p>
+                            <span class="price">$35.000</span>
+                        </div>
+                        <div class="service-card" data-service="corte-barba">
+                            <i class="fas fa-scissors"></i>
+                            <h3>Corte + Barba</h3>
+                            <p>Servicio completo de corte y arreglo de barba</p>
+                            <span class="price">$45.000</span>
+                        </div>
+                        <div class="service-card" data-service="paquete-novio">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Paquete Novio</h3>
+                            <p>Tratamiento completo para ocasiones especiales</p>
+                            <span class="price">$80.000</span>
+                        </div>
+                    </div>
+                    <div class="slide-actions">
+                        <p class="selection-text">Selecciona el servicio que deseas</p>
+                        <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Calendario -->
+        <section class="slide" id="slide-3">
+            <div class="booking">
+                <div class="container">
+                    <div class="booking-header">
+                        <h2>Reserva tu Cita</h2>
+                        <p id="booking-summary">Barbero: <span id="selected-employee-text">-</span> | Servicio: <span id="selected-service-text">-</span></p>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <!-- Google Calendar Appointment Scheduling begin -->
+                        <iframe 
+                            id="calendar-iframe"
+                            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2qKy6BclnXPW03LJKRvdG1anz4jZyYqCc2qUv_JUM4b_IcPBGHNPxkvW6Y5TU5gu5J0AOoJrPw?gv=true" 
+                            style="border: 0" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0">
+                        </iframe>
+                        <!-- end Google Calendar Appointment Scheduling -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Contacto -->
+        <section class="slide" id="slide-4">
+            <div class="contact">
+                <div class="container">
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <h2>¿Necesitas más información?</h2>
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <h3>Ubicación</h3>
+                                        <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <h3>Teléfono</h3>
+                                        <p>+57 300 123 4567</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <h3>Horarios</h3>
+                                        <p>Lunes - Viernes: 9:00 AM - 8:00 PM<br>
+                                           Sábados: 8:00 AM - 6:00 PM<br>
+                                           Domingos: 10:00 AM - 4:00 PM</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <h3>Email</h3>
+                                        <p>info@barbershopeite.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-actions">
+                            <a href="https://wa.me/573001234567" class="btn-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                Escribir por WhatsApp
+                            </a>
+                            <button class="btn-secondary" onclick="goToSlide(0)">
+                                <i class="fas fa-redo"></i>
+                                Nueva Reserva
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Mensaje de confirmación ACTUALIZADO -->
+    <div id="confirmation-message" class="confirmation-hidden">
+        <div class="confirmation-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>¡Excelente!</h3>
+            <p>Tu cita ha sido agendada exitosamente. Recibirás un correo de confirmación con todos los detalles.</p>
+            <div class="confirmation-details">
+                <p><strong>Resumen de tu cita:</strong></p>
+                <p>👨‍💼 Barbero: <span id="confirm-employee">-</span></p>
+                <p>📋 Servicio: <span id="confirm-service">-</span></p>
+                <p>📍 Calle 123 #45-67, Bogotá</p>
+                <p>📞 WhatsApp: +57 300 123 4567</p>
+            </div>
+            <div class="confirmation-actions">
+                <!-- SOLO QUEDA UN BOTÓN -->
+                <button onclick="closeConfirmation()" class="btn-primary">Perfecto</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
