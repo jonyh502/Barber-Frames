@@ -11,26 +11,29 @@
     --text-color: #333;
     --gray-light: #f5f5f5;
     --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Variables para header heights */
+    --header-height-mobile: 42px;
+    --header-height-mobile-landscape: 35px;
+    --header-height-desktop: 70px;
 }
 
 body {
     font-family: 'Barlow', sans-serif;
-    line-height: 1.3;
+    line-height: 1.4;
     color: var(--text-color);
     overflow: hidden;
     -webkit-text-size-adjust: none;
-    font-size: 12px;
     background: var(--accent-color);
 }
 
 .container {
-    max-width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 6px;
+    padding: 0 10px;
     width: 100%;
 }
 
-/* Header - SÚPER COMPACTO Android */
+/* Header - RESPONSIVE COMPLETO */
 .header {
     background: var(--secondary-color);
     position: fixed;
@@ -38,14 +41,17 @@ body {
     width: 100%;
     z-index: 1000;
     box-shadow: var(--shadow);
+    /* Móvil por defecto */
     padding: 6px 10px;
-    height: 42px;
+    height: var(--header-height-mobile);
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
     height: 100%;
 }
 
@@ -68,7 +74,7 @@ body {
     gap: 8px;
 }
 
-/* Indicadores - MINI Android */
+/* Indicadores */
 .slide-indicators {
     display: flex;
     gap: 4px;
@@ -88,7 +94,7 @@ body {
     transform: scale(1.3);
 }
 
-/* Botones - MINI Android */
+/* Botones */
 .nav-arrows {
     display: flex;
     gap: 4px;
@@ -111,6 +117,7 @@ body {
 
 .nav-btn:hover:not(:disabled) {
     background: #f4c842;
+    transform: scale(1.05);
 }
 
 .nav-btn:disabled {
@@ -121,12 +128,13 @@ body {
     background: #4a4a4a !important;
 }
 
-/* Contenedor de slides */
+/* Contenedor de slides - CON PADDING-TOP CORRECTO */
 .slides-container {
     height: 100vh;
     position: relative;
     overflow: hidden;
-    padding-top: 42px;
+    /* Móvil por defecto */
+    padding-top: var(--header-height-mobile);
 }
 
 .slide {
@@ -149,9 +157,9 @@ body {
     transform: translateX(-100%);
 }
 
-/* Hero - ANDROID COMPACTO */
+/* Hero - RESPONSIVE */
 .hero {
-    height: calc(100vh - 42px);
+    height: calc(100vh - var(--header-height-mobile));
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                 linear-gradient(135deg, var(--secondary-color), #2a2a2a);
     display: flex;
@@ -162,146 +170,104 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--accent-color);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-    line-height: 1.1;
+    line-height: 1.2;
 }
 
 .hero-content p {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--accent-color);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     opacity: 0.9;
-    line-height: 1.2;
-    max-width: 300px;
+    line-height: 1.3;
+    max-width: 320px;
 }
 
 .btn-primary {
     background: var(--primary-color);
     color: var(--secondary-color);
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
-/* Empleados - ANDROID ULTRA COMPACTO */
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Empleados - RESPONSIVE */
 .employee-selection {
-    height: calc(100vh - 42px);
+    height: calc(100vh - var(--header-height-mobile));
     background: var(--accent-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 10px 0;
+    padding: 15px 0;
     overflow-y: auto;
 }
 
 .employee-selection h2 {
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .subtitle {
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-color);
     opacity: 0.8;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    flex-shrink: 0;
 }
 
-/* GRID ANDROID - RESPONSIVE POR ORIENTACIÓN */
+/* GRID RESPONSIVE */
 .employees-grid {
     display: grid;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 15px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    /* Por defecto: móvil vertical */
+    /* Móvil vertical - 2 columnas */
     grid-template-columns: 1fr 1fr;
-    max-width: 320px;
-}
-
-/* Móvil horizontal - 4 columnas compactas */
-@media (orientation: landscape) and (max-height: 500px) {
-    .employees-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 480px;
-        gap: 6px;
-    }
-    
-    .employee-selection,
-    .services {
-        padding: 5px 0;
-    }
-    
-    .employee-selection h2,
-    .services h2 {
-        font-size: 14px;
-        margin-bottom: 4px;
-    }
-    
-    .subtitle {
-        font-size: 10px;
-        margin-bottom: 8px;
-    }
-}
-
-/* Pantallas muy pequeñas - 1 columna */
-@media (max-width: 320px) {
-    .employees-grid {
-        grid-template-columns: 1fr;
-        max-width: 250px;
-    }
-}
-
-/* Tablets y desktop */
-@media (min-width: 768px) {
-    .employees-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 700px;
-        gap: 15px;
-    }
+    max-width: 350px;
+    flex: 1;
 }
 
 .employee-card {
     background: var(--accent-color);
-    padding: 8px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 12px;
     text-align: center;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     border: 2px solid transparent;
     cursor: pointer;
-    min-height: 140px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* ANDROID HORIZONTAL - Cards más compactas */
-@media (orientation: landscape) and (max-height: 500px) {
-    .employee-card {
-        min-height: 100px;
-        padding: 6px;
-    }
-}
-
 .employee-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .employee-card.selected {
@@ -310,10 +276,10 @@ body {
 }
 
 .employee-photo {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin: 0 auto 6px;
+    margin: 0 auto 8px;
     border: 2px solid var(--primary-color);
     display: flex;
     align-items: center;
@@ -321,31 +287,16 @@ body {
     background: var(--gray-light);
 }
 
-/* ANDROID HORIZONTAL - Fotos más pequeñas */
-@media (orientation: landscape) and (max-height: 500px) {
-    .employee-photo {
-        width: 28px;
-        height: 28px;
-        margin-bottom: 4px;
-    }
-    
-    .employee-avatar {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 9px !important;
-    }
-}
-
 .employee-avatar {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-color);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -358,76 +309,50 @@ body {
 }
 
 .employee-photo.any i {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--accent-color);
 }
 
 .employee-card h3 {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--secondary-color);
-    margin-bottom: 3px;
-    line-height: 1.1;
-}
-
-/* ANDROID HORIZONTAL - Texto más pequeño */
-@media (orientation: landscape) and (max-height: 500px) {
-    .employee-card h3 {
-        font-size: 9px;
-        margin-bottom: 2px;
-    }
-    
-    .employee-specialty {
-        font-size: 8px !important;
-        margin-bottom: 3px !important;
-    }
-    
-    .employee-rating {
-        margin-bottom: 3px !important;
-    }
-    
-    .employee-rating i,
-    .employee-rating span {
-        font-size: 7px !important;
-    }
-    
-    .employee-experience {
-        font-size: 8px !important;
-    }
+    margin-bottom: 4px;
+    line-height: 1.2;
 }
 
 .employee-specialty {
     color: var(--text-color);
     opacity: 0.8;
-    margin-bottom: 5px;
-    font-size: 9px;
-    line-height: 1.1;
+    margin-bottom: 6px;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
 .employee-rating {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1px;
-    margin-bottom: 5px;
+    gap: 2px;
+    margin-bottom: 6px;
 }
 
 .employee-rating i {
     color: #ffc107;
-    font-size: 8px;
+    font-size: 9px;
 }
 
 .employee-rating span {
-    font-size: 8px;
+    font-size: 9px;
     color: var(--text-color);
     opacity: 0.8;
-    margin-left: 2px;
+    margin-left: 3px;
 }
 
 .employee-experience {
     color: var(--primary-color);
     font-weight: 600;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .any-employee {
@@ -445,106 +370,54 @@ body {
     color: var(--accent-color);
 }
 
-/* Servicios - ANDROID ULTRA COMPACTO */
+/* Servicios - RESPONSIVE */
 .services {
-    height: calc(100vh - 42px);
+    height: calc(100vh - var(--header-height-mobile));
     background: var(--gray-light);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 10px 0;
+    padding: 15px 0;
     overflow-y: auto;
 }
 
 .services h2 {
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
 }
 
 .services-grid {
     display: grid;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
-    /* Por defecto: móvil vertical */
+    /* Móvil vertical - 2 columnas */
     grid-template-columns: 1fr 1fr;
-    max-width: 320px;
-}
-
-/* Móvil horizontal - 4 columnas */
-@media (orientation: landscape) and (max-height: 500px) {
-    .services-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 480px;
-        gap: 6px;
-    }
-}
-
-/* Pantallas muy pequeñas */
-@media (max-width: 320px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-        max-width: 250px;
-    }
-}
-
-/* Tablets y desktop */
-@media (min-width: 768px) {
-    .services-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 700px;
-        gap: 15px;
-    }
+    max-width: 350px;
+    flex: 1;
 }
 
 .service-card {
     background: var(--accent-color);
-    padding: 8px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 12px;
     text-align: center;
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     border: 2px solid transparent;
     cursor: pointer;
-    min-height: 120px;
+    min-height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* ANDROID HORIZONTAL - Cards servicios más compactas */
-@media (orientation: landscape) and (max-height: 500px) {
-    .service-card {
-        min-height: 90px;
-        padding: 6px;
-    }
-    
-    .service-card i {
-        font-size: 20px !important;
-        margin-bottom: 3px !important;
-    }
-    
-    .service-card h3 {
-        font-size: 9px !important;
-        margin-bottom: 3px !important;
-    }
-    
-    .service-card p {
-        font-size: 8px !important;
-        margin-bottom: 4px !important;
-    }
-    
-    .price {
-        font-size: 10px !important;
-    }
-}
-
 .service-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .service-card.selected {
@@ -553,69 +426,69 @@ body {
 }
 
 .service-card i {
-    font-size: 24px;
+    font-size: 28px;
     color: var(--primary-color);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .service-card h3 {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--secondary-color);
-    margin-bottom: 4px;
-    line-height: 1.1;
+    margin-bottom: 6px;
+    line-height: 1.2;
 }
 
 .service-card p {
     color: var(--text-color);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     opacity: 0.8;
-    font-size: 9px;
-    line-height: 1.1;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
 .price {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--primary-color);
 }
 
-/* Booking - ANDROID COMPACTO */
+/* Booking - RESPONSIVE */
 .booking {
-    height: calc(100vh - 42px);
+    height: calc(100vh - var(--header-height-mobile));
     background: var(--accent-color);
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    padding: 15px 0;
     overflow: hidden;
 }
 
 .booking-header {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     flex-shrink: 0;
 }
 
 .booking-header h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .booking-header p {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-color);
     opacity: 0.8;
 }
 
 #booking-summary {
     background: var(--gray-light);
-    padding: 6px 8px;
-    border-radius: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
     border-left: 3px solid var(--primary-color);
-    font-size: 10px;
-    margin-bottom: 10px;
+    font-size: 11px;
+    margin-bottom: 12px;
 }
 
 #booking-summary span {
@@ -626,122 +499,90 @@ body {
 .calendar-container {
     flex: 1;
     margin: 0 auto;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 2px solid var(--primary-color);
     max-width: 95vw;
+    min-height: 0;
 }
 
 .calendar-container iframe {
     width: 100%;
     height: 100%;
-    min-height: 300px;
+    min-height: 320px;
 }
 
-/* ANDROID HORIZONTAL - Calendario más compacto */
-@media (orientation: landscape) and (max-height: 500px) {
-    .booking {
-        padding: 5px 0;
-    }
-    
-    .booking-header {
-        margin-bottom: 5px;
-    }
-    
-    .booking-header h2 {
-        font-size: 14px;
-        margin-bottom: 4px;
-    }
-    
-    .calendar-container iframe {
-        min-height: 200px;
-    }
-}
-
-/* Contacto - ANDROID COMPACTO */
+/* Contacto - RESPONSIVE */
 .contact {
-    height: calc(100vh - 42px);
+    height: calc(100vh - var(--header-height-mobile));
     background: linear-gradient(135deg, var(--secondary-color), #2a2a2a);
     display: flex;
     align-items: center;
     color: var(--accent-color);
-    padding: 10px 0;
+    padding: 15px 0;
     overflow-y: auto;
 }
 
 .contact-content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 20px;
     text-align: center;
     width: 100%;
 }
 
-@media (min-width: 768px) {
-    .contact-content {
-        grid-template-columns: 2fr 1fr;
-        text-align: left;
-    }
-}
-
 .contact h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .contact-details {
     display: grid;
-    gap: 8px;
+    gap: 12px;
 }
 
 .contact-item {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
 }
 
-@media (min-width: 768px) {
-    .contact-item {
-        justify-content: flex-start;
-    }
-}
-
 .contact-item i {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--primary-color);
     margin-top: 2px;
     flex-shrink: 0;
 }
 
 .contact-item h3 {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .contact-item p {
     color: var(--accent-color);
     opacity: 0.9;
-    font-size: 11px;
-    line-height: 1.2;
+    font-size: 12px;
+    line-height: 1.3;
 }
 
 .contact-actions {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .btn-whatsapp {
     background: #25d366;
     color: var(--accent-color);
-    padding: 10px 16px;
-    border-radius: 20px;
+    padding: 12px 20px;
+    border-radius: 25px;
     text-decoration: none;
     font-weight: 600;
     text-align: center;
@@ -749,45 +590,55 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    font-size: 11px;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.btn-whatsapp:hover {
+    background: #128c7e;
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--accent-color);
     border: 2px solid var(--primary-color);
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    font-size: 11px;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 /* Acciones de slide */
 .slide-actions {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 12px;
     flex-shrink: 0;
 }
 
 .selection-text {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-color);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     opacity: 0.8;
 }
 
 .auto-advance-text {
-    font-size: 9px;
+    font-size: 10px;
     color: var(--primary-color);
     font-style: italic;
-    margin-top: 3px;
+    margin-top: 4px;
     opacity: 0.8;
 }
 
@@ -799,7 +650,7 @@ body {
 /* Animaciones */
 @keyframes confirmSelection {
     0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+    50% { transform: scale(1.03); }
     100% { transform: scale(1); }
 }
 
@@ -808,7 +659,7 @@ body {
     animation: confirmSelection 0.6s ease;
 }
 
-/* Mensaje de confirmación - ANDROID */
+/* Mensaje de confirmación */
 .confirmation-hidden {
     display: none;
 }
@@ -824,51 +675,51 @@ body {
     z-index: 10000;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 20px;
 }
 
 .confirmation-content {
     background: var(--accent-color);
-    padding: 16px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 15px;
     text-align: center;
-    max-width: 300px;
+    max-width: 380px;
     width: 100%;
     box-shadow: 0 10px 50px rgba(0,0,0,0.3);
 }
 
 .confirmation-content i {
-    font-size: 32px;
+    font-size: 36px;
     color: #4CAF50;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .confirmation-content h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .confirmation-content p {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-color);
-    margin-bottom: 12px;
-    line-height: 1.3;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .confirmation-details {
     background: var(--gray-light);
-    padding: 10px;
-    border-radius: 6px;
-    margin: 12px 0;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
     text-align: left;
 }
 
 .confirmation-details p {
-    margin-bottom: 3px;
-    font-size: 10px;
-    line-height: 1.2;
+    margin-bottom: 4px;
+    font-size: 11px;
+    line-height: 1.3;
 }
 
 .confirmation-details span {
@@ -876,94 +727,86 @@ body {
     font-weight: 600;
 }
 
-/* RESPONSIVE ADICIONAL PARA ANDROID */
-
-/* Android muy pequeño */
-@media (max-width: 280px) {
-    .nav-brand span {
-        display: none;
-    }
-    
-    .hero-content h1 {
-        font-size: 18px;
-    }
-    
-    .employee-card,
-    .service-card {
-        min-height: 120px;
-        padding: 6px;
-    }
-}
-
-/* Tablets */
-@media (min-width: 768px) {
-    body {
-        font-size: 16px;
-    }
-    
+/* MÓVIL HORIZONTAL - Ajustes específicos */
+@media (orientation: landscape) and (max-height: 500px) {
     .header {
-        padding: 15px 20px;
-        height: 70px;
-    }
-    
-    .slides-container {
-        padding-top: 70px;
-    }
-    
-    .hero-content h1 {
-        font-size: 42px;
-    }
-    
-    .hero-content p {
-        font-size: 18px;
-    }
-    
-    .employee-selection h2,
-    .services h2,
-    .booking-header h2,
-    .contact h2 {
-        font-size: 32px;
-    }
-    
-    .employee-card,
-    .service-card {
-        min-height: 250px;
-        padding: 20px;
-    }
-    
-    .employee-photo {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .employee-avatar {
-        width: 50px;
-        height: 50px;
-        font-size: 16px;
-    }
-    
-    .service-card i {
-        font-size: 40px;
-    }
-}
-
-/* Android horizontal específico */
-@media (orientation: landscape) and (max-height: 450px) {
-    .header {
-        height: 35px;
+        height: var(--header-height-mobile-landscape);
         padding: 4px 8px;
     }
     
     .slides-container {
-        padding-top: 35px;
+        padding-top: var(--header-height-mobile-landscape);
+    }
+    
+    .hero,
+    .employee-selection,
+    .services,
+    .booking,
+    .contact {
+        height: calc(100vh - var(--header-height-mobile-landscape));
+        padding: 8px 0;
+    }
+    
+    .employees-grid,
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 500px;
+        gap: 8px;
+    }
+    
+    .employee-card,
+    .service-card {
+        min-height: 100px;
+        padding: 6px;
+    }
+    
+    .employee-photo {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 4px;
+    }
+    
+    .employee-avatar {
+        width: 26px;
+        height: 26px;
+        font-size: 9px;
+    }
+    
+    .employee-card h3,
+    .service-card h3 {
+        font-size: 10px;
+        margin-bottom: 2px;
+    }
+    
+    .employee-specialty,
+    .service-card p {
+        font-size: 8px;
+        margin-bottom: 3px;
+    }
+    
+    .service-card i {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    
+    .hero-content h1 {
+        font-size: 18px;
+    }
+    
+    .hero-content p {
+        font-size: 11px;
+        margin-bottom: 12px;
+    }
+    
+    .employee-selection h2,
+    .services h2,
+    .booking-header h2 {
+        font-size: 14px;
+        margin-bottom: 6px;
     }
     
     .nav-brand {
         font-size: 11px;
-    }
-    
-    .nav-brand i {
-        font-size: 12px;
     }
     
     .nav-btn {
@@ -971,9 +814,278 @@ body {
         height: 24px;
         font-size: 8px;
     }
+}
+
+/* PANTALLAS MUY PEQUEÑAS */
+@media (max-width: 320px) {
+    .employees-grid,
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+    }
+    
+    .nav-brand span {
+        display: none;
+    }
+}
+
+/* TABLETS Y PC - RESPONSIVE COMPLETO */
+@media (min-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+    .header {
+        height: var(--header-height-desktop);
+        padding: 15px 20px;
+    }
+    
+    .slides-container {
+        padding-top: var(--header-height-desktop);
+    }
+    
+    .hero,
+    .employee-selection,
+    .services,
+    .booking,
+    .contact {
+        height: calc(100vh - var(--header-height-desktop));
+        padding: 40px 0;
+    }
+    
+    .nav-brand {
+        font-size: 24px;
+    }
+    
+    .nav-brand i {
+        font-size: 28px;
+        margin-right: 10px;
+    }
+    
+    .nav-controls {
+        gap: 20px;
+    }
+    
+    .slide-indicators {
+        gap: 12px;
+    }
     
     .indicator {
-        width: 5px;
-        height: 5px;
+        width: 12px;
+        height: 12px;
+    }
+    
+    .nav-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .nav-arrows {
+        gap: 10px;
+    }
+    
+    .hero-content h1 {
+        font-size: 56px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-content p {
+        font-size: 20px;
+        margin-bottom: 30px;
+        max-width: 600px;
+    }
+    
+    .btn-primary {
+        padding: 15px 30px;
+        font-size: 16px;
+        gap: 10px;
+    }
+    
+    .employee-selection h2,
+    .services h2,
+    .booking-header h2,
+    .contact h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+    
+    .subtitle {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    
+    .employees-grid,
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1000px;
+        gap: 25px;
+    }
+    
+    .employee-card,
+    .service-card {
+        min-height: 300px;
+        padding: 25px;
+        border-radius: 20px;
+    }
+    
+    .employee-photo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+    }
+    
+    .employee-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+    }
+    
+    .employee-photo.any i {
+        font-size: 35px;
+    }
+    
+    .employee-card h3,
+    .service-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .employee-specialty,
+    .service-card p {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    
+    .employee-rating i,
+    .employee-rating span {
+        font-size: 14px;
+    }
+    
+    .employee-experience {
+        font-size: 14px;
+    }
+    
+    .service-card i {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+    
+    .price {
+        font-size: 22px;
+    }
+    
+    .booking-header p {
+        font-size: 16px;
+    }
+    
+    #booking-summary {
+        padding: 15px 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .calendar-container iframe {
+        min-height: 600px;
+    }
+    
+    .contact-content {
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        text-align: left;
+    }
+    
+    .contact-item {
+        justify-content: flex-start;
+    }
+    
+    .contact-item i {
+        font-size: 22px;
+    }
+    
+    .contact-item h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    
+    .contact-item p {
+        font-size: 16px;
+    }
+    
+    .btn-whatsapp,
+    .btn-secondary {
+        padding: 15px 25px;
+        font-size: 16px;
+        gap: 10px;
+    }
+    
+    .slide-actions {
+        margin-top: 20px;
+    }
+    
+    .selection-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .auto-advance-text {
+        font-size: 14px;
+        margin-top: 8px;
+    }
+    
+    .confirmation-content {
+        max-width: 500px;
+        padding: 30px;
+    }
+    
+    .confirmation-content i {
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+    
+    .confirmation-content h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .confirmation-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .confirmation-details {
+        padding: 18px;
+        margin: 20px 0;
+    }
+    
+    .confirmation-details p {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+}
+
+/* DESKTOP GRANDE */
+@media (min-width: 1200px) {
+    .employees-grid,
+    .services-grid {
+        max-width: 1200px;
+        gap: 30px;
+    }
+    
+    .employee-card,
+    .service-card {
+        min-height: 320px;
+        padding: 30px;
+    }
+    
+    .hero-content h1 {
+        font-size: 64px;
+    }
+    
+    .employee-selection h2,
+    .services h2,
+    .booking-header h2,
+    .contact h2 {
+        font-size: 48px;
     }
 }
