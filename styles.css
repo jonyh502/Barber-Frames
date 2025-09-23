@@ -273,12 +273,12 @@ body {
         max-width: 500px !important;
         gap: 8px !important;
     }
-    
+
     .employee-selection,
     .services {
         padding: 15px 0 10px !important;
     }
-    
+
     .top-spacer {
         height: 15px !important;
         min-height: 15px !important;
@@ -842,11 +842,11 @@ body {
     .header {
         height: 50px !important;
     }
-    
+
     .slides-container {
         padding-top: 55px !important;
     }
-    
+
     .hero,
     .employee-selection,
     .services,
@@ -854,46 +854,46 @@ body {
     .contact {
         height: calc(100vh - 55px) !important;
     }
-    
+
     .employee-card,
     .service-card {
         min-height: 100px !important;
         padding: 6px !important;
     }
-    
+
     .employee-photo {
         width: 30px !important;
         height: 30px !important;
         margin-bottom: 4px !important;
     }
-    
+
     .employee-avatar {
         width: 26px !important;
         height: 26px !important;
         font-size: 9px !important;
     }
-    
+
     .employee-card h3,
     .service-card h3 {
         font-size: 10px !important;
         margin-bottom: 2px !important;
     }
-    
+
     .employee-specialty,
     .service-card p {
         font-size: 8px !important;
         margin-bottom: 3px !important;
     }
-    
+
     .service-card i {
         font-size: 20px !important;
         margin-bottom: 4px !important;
     }
-    
+
     .hero-content h1 {
         font-size: 18px !important;
     }
-    
+
     .employee-selection h2,
     .services h2,
     .booking-header h2 {
