@@ -3,226 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="Barbería profesional con más de 10 años de experiencia. Reserva tu cita online.">
+    <meta name="keywords" content="barbería, corte de cabello, afeitado, barba, bigote, Bogotá">
+    <meta name="author" content="Barbershop Elite">
+    <meta name="theme-color" content="#d4af37">
+    
+    <!-- PWA Support -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>BarberShop Elite - Reserva tu cita</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-title" content="Barbershop Elite">
+    
+    <!-- Preconnect para mejorar rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Fonts optimizadas -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <title>Barbershop Elite - Reserva tu cita online</title>
+    <link rel="stylesheet" href="styles_responsive.css">
 </head>
 <body>
-    <!-- Header fijo -->
+    <!-- Header mejorado para responsive -->
     <header class="header">
-        <nav class="navbar">
+        <div class="navbar">
             <div class="nav-brand">
-                <i class="fas fa-cut"></i>
-                <span>BarberShop Elite</span>
+                <i class="fas fa-cut" aria-hidden="true"></i>
+                <span>Barbershop Elite</span>
             </div>
             <div class="nav-controls">
+                <!-- Indicadores de progreso más compactos para móvil -->
                 <div class="slide-indicators">
-                    <span class="indicator active" data-slide="0"></span>
-                    <span class="indicator" data-slide="1"></span>
-                    <span class="indicator" data-slide="2"></span>
-                    <span class="indicator" data-slide="3"></span>
-                    <span class="indicator" data-slide="4"></span>
+                    <div class="indicator active" data-slide="0" aria-label="Inicio">
+                        <span class="indicator-number">1</span>
+                        <span class="indicator-label">Inicio</span>
+                    </div>
+                    <div class="indicator" data-slide="1" aria-label="Barbero">
+                        <span class="indicator-number">2</span>
+                        <span class="indicator-label">Barbero</span>
+                    </div>
+                    <div class="indicator" data-slide="2" aria-label="Servicio">
+                        <span class="indicator-number">3</span>
+                        <span class="indicator-label">Servicio</span>
+                    </div>
+                    <div class="indicator" data-slide="3" aria-label="Reservar">
+                        <span class="indicator-number">4</span>
+                        <span class="indicator-label">Reservar</span>
+                    </div>
+                    <div class="indicator" data-slide="4" aria-label="Contacto">
+                        <span class="indicator-number">5</span>
+                        <span class="indicator-label">Contacto</span>
+                    </div>
                 </div>
+                
+                <!-- Controles de navegación -->
                 <div class="nav-arrows">
-                    <button class="nav-btn prev-btn" onclick="previousSlide()">
+                    <button class="nav-btn prev-btn" onclick="previousSlide()" aria-label="Anterior">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="nav-btn next-btn" onclick="nextSlide()">
+                    <button class="nav-btn next-btn" onclick="nextSlide()" aria-label="Siguiente">
                         <i class="fas fa-chevron-right"></i>
                     </button>
-                    <button class="nav-btn fullscreen-btn" onclick="enterFullscreen()">
+                    <button class="nav-btn fullscreen-btn" onclick="enterFullscreen()" aria-label="Pantalla completa">
                         <i class="fas fa-expand"></i>
                     </button>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Contenedor principal de slides -->
+    <!-- Container principal optimizado -->
     <div class="slides-container">
-
-        <!-- Slide 1: Hero -->
-        <section class="slide active" id="slide-0">
+        <!-- Slide 1: Página de inicio mejorada -->
+        <div class="slide active">
             <div class="hero">
-                <div class="hero-content">
-                    <h1>El Corte Perfecto Te Espera</h1>
-                    <p>Profesionales expertos en barbería masculina con más de 10 años de experiencia</p>
-                    <button class="btn-primary" onclick="nextSlide()">Comenzar Reserva</button>
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>
+                            <span class="title-main">Barbershop</span> 
+                            <span class="title-accent">Elite</span>
+                        </h1>
+                        <p>Profesionales expertos en barbería masculina con más de 10 años de experiencia</p>
+                        
+                        <!-- Features grid responsivo -->
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <i class="fas fa-award"></i>
+                                <h3>Calidad Premium</h3>
+                                <p>Más de 10 años perfeccionando nuestro arte</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-clock"></i>
+                                <h3>Puntualidad</h3>
+                                <p>Respetamos tu tiempo, siempre puntuales</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-calendar-check"></i>
+                                <h3>Reserva Online</h3>
+                                <p>Sistema de reservas moderno y fácil</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary cta-button" onclick="nextSlide()">
+                            <span>Reservar Cita</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        
+                        <!-- Rating display responsivo -->
+                        <div class="rating-display">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0 (127+ reseñas)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-overlay"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- Slide 2: Seleccionar Empleado -->
-        <section class="slide" id="slide-1">
+        <!-- Slide 2: Selección de empleados optimizado -->
+        <div class="slide">
             <div class="employee-selection">
                 <div class="container">
                     <div class="top-spacer"></div>
-
-                    <h2>Elige tu Barbero</h2>
-                    <p class="subtitle">Selecciona el profesional de tu preferencia</p>
-
+                    <h2>Selecciona tu barbero preferido</h2>
+                    <p class="subtitle">Cada uno de nuestros profesionales está especializado en diferentes técnicas</p>
+                    
                     <div class="employees-grid">
-                        <div class="employee-card" data-employee="carlos">
+                        <div class="employee-card" data-employee="carlos" data-name="Carlos Mendoza" role="button" tabindex="0">
                             <div class="employee-photo">
                                 <div class="employee-avatar carlos"></div>
                             </div>
-                            <h3>Carlos Mendoza</h3>
-                            <p class="employee-specialty">Especialista en cortes clásicos</p>
-                            <div class="employee-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (127 reseñas)</span>
+                            <div class="employee-info">
+                                <h3>Carlos Mendoza</h3>
+                                <p class="employee-specialty">Especialista en cortes clásicos</p>
+                                <p class="employee-experience">8 años de experiencia</p>
+                                <div class="employee-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
                             </div>
-                            <p class="employee-experience">8 años de experiencia</p>
                         </div>
 
-                        <div class="employee-card" data-employee="miguel">
+                        <div class="employee-card" data-employee="miguel" data-name="Miguel Rodriguez" role="button" tabindex="0">
                             <div class="employee-photo">
                                 <div class="employee-avatar miguel"></div>
                             </div>
-                            <h3>Miguel Torres</h3>
-                            <p class="employee-specialty">Experto en barbas y bigotes</p>
-                            <div class="employee-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>4.8 (95 reseñas)</span>
+                            <div class="employee-info">
+                                <h3>Miguel Rodriguez</h3>
+                                <p class="employee-specialty">Experto en barbas y bigotes</p>
+                                <p class="employee-experience">6 años de experiencia</p>
+                                <div class="employee-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
                             </div>
-                            <p class="employee-experience">6 años de experiencia</p>
                         </div>
 
-                        <div class="employee-card" data-employee="andres">
+                        <div class="employee-card" data-employee="andres" data-name="Andrés Silva" role="button" tabindex="0">
                             <div class="employee-photo">
                                 <div class="employee-avatar andres"></div>
                             </div>
-                            <h3>Andrés Vázquez</h3>
-                            <p class="employee-specialty">Cortes modernos y tendencias</p>
-                            <div class="employee-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (143 reseñas)</span>
+                            <div class="employee-info">
+                                <h3>Andrés Silva</h3>
+                                <p class="employee-specialty">Cortes modernos y tendencias</p>
+                                <p class="employee-experience">10 años de experiencia</p>
+                                <div class="employee-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>5.0</span>
+                                </div>
                             </div>
-                            <p class="employee-experience">10 años de experiencia</p>
                         </div>
 
-                        <div class="employee-card any-employee" data-employee="cualquiera">
+                        <div class="employee-card any-employee" data-employee="any" data-name="Cualquier barbero disponible" role="button" tabindex="0">
                             <div class="employee-photo any">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <h3>Cualquier Barbero</h3>
-                            <p class="employee-specialty">El próximo disponible</p>
-                            <div class="employee-rating">
-                                <span>Horarios más flexibles</span>
+                            <div class="employee-info">
+                                <h3>El próximo disponible</h3>
+                                <p class="employee-specialty">Todos nuestros profesionales</p>
+                                <p class="employee-experience">Experiencia garantizada</p>
+                                <div class="employee-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
                             </div>
-                            <p class="employee-experience">Todos nuestros profesionales</p>
                         </div>
                     </div>
-
+                    
                     <div class="slide-actions">
-                        <p class="selection-text">Selecciona tu barbero preferido</p>
+                        <p class="selection-text">Barbero seleccionado: <span id="selected-barber-name">Ninguno</span></p>
                         <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Slide 3: Servicios -->
-        <section class="slide" id="slide-2">
+        <!-- Slide 3: Servicios optimizado -->
+        <div class="slide">
             <div class="services">
                 <div class="container">
                     <div class="top-spacer"></div>
-
-                    <h2>Nuestros Servicios</h2>
-                    <p class="subtitle">¿Qué servicio deseas con <span id="selected-barber-name">tu barbero</span>?</p>
+                    <h2>¿Qué servicio deseas?</h2>
+                    <p class="subtitle">Selecciona el servicio que mejor se adapte a tus necesidades</p>
+                    
                     <div class="services-grid">
-                        <div class="service-card" data-service="corte-clasico">
+                        <div class="service-card" data-service="corte" data-name="Corte de cabello" data-price="25000" role="button" tabindex="0">
                             <i class="fas fa-cut"></i>
-                            <h3>Corte Clásico</h3>
+                            <h3>Corte de cabello</h3>
                             <p>Cortes tradicionales con técnicas modernas</p>
-                            <span class="price">$25.000</span>
+                            <div class="price">$25.000</div>
                         </div>
-                        <div class="service-card" data-service="afeitado-premium">
-                            <i class="fas fa-spa"></i>
-                            <h3>Afeitado Premium</h3>
+
+                        <div class="service-card" data-service="afeitado" data-name="Afeitado con navaja" data-price="35000" role="button" tabindex="0">
+                            <i class="fas fa-razor"></i>
+                            <h3>Afeitado con navaja</h3>
                             <p>Afeitado con navaja y tratamiento facial</p>
-                            <span class="price">$35.000</span>
+                            <div class="price">$35.000</div>
                         </div>
-                        <div class="service-card" data-service="corte-barba">
+
+                        <div class="service-card" data-service="combo" data-name="Servicio completo" data-price="45000" role="button" tabindex="0">
                             <i class="fas fa-scissors"></i>
-                            <h3>Corte + Barba</h3>
+                            <h3>Servicio completo</h3>
                             <p>Servicio completo de corte y arreglo de barba</p>
-                            <span class="price">$45.000</span>
+                            <div class="price">$45.000</div>
                         </div>
-                        <div class="service-card" data-service="paquete-novio">
-                            <i class="fas fa-user-tie"></i>
-                            <h3>Paquete Novio</h3>
+
+                        <div class="service-card premium" data-service="premium" data-name="Experiencia Premium" data-price="80000" role="button" tabindex="0">
+                            <i class="fas fa-crown"></i>
+                            <h3>Experiencia Premium</h3>
                             <p>Tratamiento completo para ocasiones especiales</p>
-                            <span class="price">$80.000</span>
+                            <div class="price">$80.000</div>
                         </div>
                     </div>
+                    
                     <div class="slide-actions">
-                        <p class="selection-text">Selecciona el servicio que deseas</p>
+                        <p class="selection-text">Servicio seleccionado: <span id="selected-service-name">Ninguno</span></p>
                         <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Slide 4: Calendario -->
-        <section class="slide" id="slide-3">
+        <!-- Slide 4: Reserva con calendario mejorado -->
+        <div class="slide">
             <div class="booking">
                 <div class="container">
                     <div class="top-spacer"></div>
-
                     <div class="booking-header">
-                        <h2>Reserva tu Cita</h2>
-                        <p id="booking-summary">Barbero: <span id="selected-employee-text">-</span> | Servicio: <span id="selected-service-text">-</span></p>
+                        <h2>Reserva tu cita</h2>
+                        <p>Completa tu reserva con nuestro calendario integrado</p>
                     </div>
-
+                    
+                    <!-- Resumen de selección -->
+                    <div id="booking-summary">
+                        <strong>Resumen:</strong> Barbero: <span id="summary-barber">-</span> | Servicio: <span id="summary-service">-</span>
+                    </div>
+                    
+                    <!-- Calendario responsivo -->
                     <div class="calendar-container">
                         <iframe 
                             id="calendar-iframe"
-                            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2qKy6BclnXPW03LJKRvdG1anz4jZyYqCc2qUv_JUM4b_IcPBGHNPxkvW6Y5TU5gu5J0AOoJrPw?gv=true" 
-                            style="border: 0" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0">
+                            src="https://calendar.google.com/calendar/embed?height=400&wkst=2&bgcolor=%23ffffff&ctz=America%2FBogota&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&mode=AGENDA"
+                            frameborder="0" 
+                            scrolling="no"
+                            loading="lazy">
                         </iframe>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Slide 5: Contacto -->
-        <section class="slide" id="slide-4">
+        <!-- Slide 5: Contacto optimizado -->
+        <div class="slide">
             <div class="contact">
                 <div class="container">
-                    <div class="top-spacer"></div>
-
                     <div class="contact-content">
                         <div class="contact-info">
-                            <h2>¿Necesitas más información?</h2>
+                            <h2>¡Tu cita está lista!</h2>
+                            <p class="confirmation-text">Tu cita ha sido agendada exitosamente. Recibirás un correo de confirmación con todos los detalles.</p>
+                            
+                            <!-- Resumen final responsivo -->
+                            <div class="final-summary">
+                                <h3>Resumen de tu cita:</h3>
+                                <div class="summary-grid">
+                                    <div class="summary-item">
+                                        <i class="fas fa-user"></i>
+                                        <div>
+                                            <strong>Barbero:</strong>
+                                            <span id="final-barber">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <i class="fas fa-cut"></i>
+                                        <div>
+                                            <strong>Servicio:</strong>
+                                            <span id="final-service">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="contact-details">
                                 <div class="contact-item">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <div>
-                                        <h3>Ubicación</h3>
+                                        <h3>Dirección</h3>
                                         <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
                                     </div>
                                 </div>
+                                
                                 <div class="contact-item">
                                     <i class="fas fa-phone"></i>
                                     <div>
@@ -230,15 +343,17 @@
                                         <p>+57 300 123 4567</p>
                                     </div>
                                 </div>
+                                
                                 <div class="contact-item">
                                     <i class="fas fa-clock"></i>
                                     <div>
                                         <h3>Horarios</h3>
                                         <p>Lunes - Viernes: 9:00 AM - 8:00 PM<br>
-                                           Sábados: 8:00 AM - 6:00 PM<br>
-                                           Domingos: 10:00 AM - 4:00 PM</p>
+                                        Sábados: 8:00 AM - 6:00 PM<br>
+                                        Domingos: 10:00 AM - 4:00 PM</p>
                                     </div>
                                 </div>
+                                
                                 <div class="contact-item">
                                     <i class="fas fa-envelope"></i>
                                     <div>
@@ -248,43 +363,58 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Acciones responsivas -->
                         <div class="contact-actions">
-                            <a href="https://wa.me/573001234567" class="btn-whatsapp" target="_blank">
+                            <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20confirmar%20mi%20cita%20en%20Barbershop%20Elite" 
+                               class="btn-whatsapp" 
+                               target="_blank" 
+                               rel="noopener">
                                 <i class="fab fa-whatsapp"></i>
-                                Escribir por WhatsApp
+                                <span>Confirmar por WhatsApp</span>
                             </a>
-                            <button class="btn-secondary" onclick="goToSlide(0)">
-                                <i class="fas fa-redo"></i>
-                                Nueva Reserva
+                            
+                            <button class="btn-secondary" onclick="resetSelections()">
+                                <i class="fas fa-plus"></i>
+                                <span>Nueva reserva</span>
+                            </button>
+                            
+                            <button class="btn-calendar" onclick="addToGoogleCalendar()">
+                                <i class="fas fa-calendar-plus"></i>
+                                <span>Agregar a Google Calendar</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </div>
 
-    <!-- Mensaje de confirmación -->
-    <div id="confirmation-message" class="confirmation-hidden">
+    <!-- Overlay de confirmación -->
+    <div id="confirmation-overlay" class="confirmation-hidden">
         <div class="confirmation-content">
             <i class="fas fa-check-circle"></i>
-            <h3>¡Excelente!</h3>
-            <p>Tu cita ha sido agendada exitosamente. Recibirás un correo de confirmación con todos los detalles.</p>
+            <h3>¡Reserva Confirmada!</h3>
+            <p>Tu cita ha sido agendada exitosamente</p>
             <div class="confirmation-details">
-                <p><strong>Resumen de tu cita:</strong></p>
-                <p>👨‍💼 Barbero: <span id="confirm-employee">-</span></p>
-                <p>📋 Servicio: <span id="confirm-service">-</span></p>
-                <p>📍 Calle 123 #45-67, Bogotá</p>
-                <p>📞 WhatsApp: +57 300 123 4567</p>
+                <p><strong>👨‍💼 Barbero:</strong> <span id="confirmation-barber">-</span></p>
+                <p><strong>📋 Servicio:</strong> <span id="confirmation-service">-</span></p>
+                <p><strong>📍 Ubicación:</strong> Calle 123 #45-67, Bogotá</p>
+                <p><strong>📞 WhatsApp:</strong> +57 300 123 4567</p>
             </div>
             <div class="confirmation-actions">
-                <button onclick="closeConfirmation()" class="btn-primary">Perfecto</button>
+                <button class="btn-primary" onclick="nextSlide(); closeConfirmation();">
+                    <i class="fas fa-check"></i>
+                    Continuar
+                </button>
+                <button class="btn-secondary" onclick="closeConfirmation()">
+                    <i class="fas fa-times"></i>
+                    Cerrar
+                </button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script_responsive.js"></script>
 </body>
 </html>
-
