@@ -1,420 +1,656 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="description" content="Barbería profesional con más de 10 años de experiencia. Reserva tu cita online.">
-    <meta name="keywords" content="barbería, corte de cabello, afeitado, barba, bigote, Bogotá">
-    <meta name="author" content="Barbershop Elite">
-    <meta name="theme-color" content="#d4af37">
-    
-    <!-- PWA Support -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Barbershop Elite">
-    
-    <!-- Preconnect para mejorar rendimiento -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
-    <!-- Fonts optimizadas -->
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <title>Barbershop Elite - Reserva tu cita online</title>
-    <link rel="stylesheet" href="styles_responsive.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbería Frames - Reserva tu turno</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --secondary: #22c55e;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --border: #334155;
+      --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+      --glow: 0 0 20px rgba(14, 165, 233, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      color: var(--light);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 2rem 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .booking-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .booking-subtitle {
+      text-align: center;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .booking-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #0284c7);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: var(--shadow);
+      min-width: 200px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--light);
+      border-color: var(--primary);
+    }
+
+    /* Services */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .service-card {
+      background: rgba(15, 23, 42, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .service-card p {
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    /* Info Section */
+    .info-section {
+      background: rgba(15, 23, 42, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .info-section h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal h3 {
+      color: var(--secondary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal p {
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    /* Diagnostic Panel */
+    .diagnostic {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--darker);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      max-width: 400px;
+      font-size: 0.9rem;
+      z-index: 999;
+      display: none;
+    }
+
+    .diagnostic h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .diagnostic .log {
+      color: var(--gray);
+      font-family: monospace;
+      font-size: 0.8rem;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .booking-section {
+        padding: 2rem 1rem;
+      }
+      
+      .services {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
 </head>
 <body>
-    <!-- Header mejorado para responsive -->
-    <header class="header">
-        <div class="navbar">
-            <div class="nav-brand">
-                <i class="fas fa-cut" aria-hidden="true"></i>
-                <span>Barbershop Elite</span>
-            </div>
-            <div class="nav-controls">
-                <!-- Indicadores de progreso más compactos para móvil -->
-                <div class="slide-indicators">
-                    <div class="indicator active" data-slide="0" aria-label="Inicio">
-                        <span class="indicator-number">1</span>
-                        <span class="indicator-label">Inicio</span>
-                    </div>
-                    <div class="indicator" data-slide="1" aria-label="Barbero">
-                        <span class="indicator-number">2</span>
-                        <span class="indicator-label">Barbero</span>
-                    </div>
-                    <div class="indicator" data-slide="2" aria-label="Servicio">
-                        <span class="indicator-number">3</span>
-                        <span class="indicator-label">Servicio</span>
-                    </div>
-                    <div class="indicator" data-slide="3" aria-label="Reservar">
-                        <span class="indicator-number">4</span>
-                        <span class="indicator-label">Reservar</span>
-                    </div>
-                    <div class="indicator" data-slide="4" aria-label="Contacto">
-                        <span class="indicator-number">5</span>
-                        <span class="indicator-label">Contacto</span>
-                    </div>
-                </div>
-                
-                <!-- Controles de navegación -->
-                <div class="nav-arrows">
-                    <button class="nav-btn prev-btn" onclick="previousSlide()" aria-label="Anterior">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="nav-btn next-btn" onclick="nextSlide()" aria-label="Siguiente">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <button class="nav-btn fullscreen-btn" onclick="enterFullscreen()" aria-label="Pantalla completa">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <div class="logo">
+        <div class="logo-icon">BF</div>
+        <span>Barbería Frames</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#reservar">Reservar</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+      <h1>Cortes profesionales, reservas sencillas</h1>
+      <p>Agenda tu turno con disponibilidad en tiempo real a través de nuestro sistema integrado con Google Calendar.</p>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="reservar" class="booking-section fade-in">
+      <h2 class="booking-title">Reserva tu turno</h2>
+      <p class="booking-subtitle">Selecciona fecha y hora disponible. Recibirás confirmación y recordatorios automáticos.</p>
+      
+      <div class="booking-buttons">
+        <button id="btn-reservar" class="btn-primary">
+          📅 Reservar turno ahora
+        </button>
+        <p style="color: var(--gray); font-size: 0.9rem; max-width: 400px; text-align: center;">
+          Se abrirá una ventana de Google Calendar para completar tu reserva. Al finalizar y cerrar la ventana, verás un mensaje de confirmación.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="servicios" class="services fade-in">
+      <div class="service-card">
+        <h3>Corte Clásico</h3>
+        <p>Estilo limpio y definido con terminaciones profesionales a tijera o máquina según tu preferencia.</p>
+        <div class="price">$15.000</div>
+      </div>
+      <div class="service-card">
+        <h3>Barba y Contornos</h3>
+        <p>Afeitado prolijo con toalla caliente, definición de líneas y acabado perfecto para tu estilo.</p>
+        <div class="price">$10.000</div>
+      </div>
+      <div class="service-card">
+        <h3>Combo Completo</h3>
+        <p>Servicio integral: corte + barba + asesoría de estilo personalizada para un look profesional.</p>
+        <div class="price">$22.000</div>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="contacto" class="info-section fade-in">
+      <h3>📍 Información y Horarios</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span>🕒</span>
+          <span>Lun - Sáb: 10:00 - 20:00</span>
         </div>
-    </header>
-
-    <!-- Container principal optimizado -->
-    <div class="slides-container">
-        <!-- Slide 1: Página de inicio mejorada -->
-        <div class="slide active">
-            <div class="hero">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>
-                            <span class="title-main">Barbershop</span> 
-                            <span class="title-accent">Elite</span>
-                        </h1>
-                        <p>Profesionales expertos en barbería masculina con más de 10 años de experiencia</p>
-                        
-                        <!-- Features grid responsivo -->
-                        <div class="features-grid">
-                            <div class="feature-card">
-                                <i class="fas fa-award"></i>
-                                <h3>Calidad Premium</h3>
-                                <p>Más de 10 años perfeccionando nuestro arte</p>
-                            </div>
-                            <div class="feature-card">
-                                <i class="fas fa-clock"></i>
-                                <h3>Puntualidad</h3>
-                                <p>Respetamos tu tiempo, siempre puntuales</p>
-                            </div>
-                            <div class="feature-card">
-                                <i class="fas fa-calendar-check"></i>
-                                <h3>Reserva Online</h3>
-                                <p>Sistema de reservas moderno y fácil</p>
-                            </div>
-                        </div>
-                        
-                        <button class="btn-primary cta-button" onclick="nextSlide()">
-                            <span>Reservar Cita</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                        
-                        <!-- Rating display responsivo -->
-                        <div class="rating-display">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="rating-text">5.0 (127+ reseñas)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="info-item">
+          <span>📍</span>
+          <span>Av. Principal 123, Ciudad</span>
         </div>
-
-        <!-- Slide 2: Selección de empleados optimizado -->
-        <div class="slide">
-            <div class="employee-selection">
-                <div class="container">
-                    <div class="top-spacer"></div>
-                    <h2>Selecciona tu barbero preferido</h2>
-                    <p class="subtitle">Cada uno de nuestros profesionales está especializado en diferentes técnicas</p>
-                    
-                    <div class="employees-grid">
-                        <div class="employee-card" data-employee="carlos" data-name="Carlos Mendoza" role="button" tabindex="0">
-                            <div class="employee-photo">
-                                <div class="employee-avatar carlos"></div>
-                            </div>
-                            <div class="employee-info">
-                                <h3>Carlos Mendoza</h3>
-                                <p class="employee-specialty">Especialista en cortes clásicos</p>
-                                <p class="employee-experience">8 años de experiencia</p>
-                                <div class="employee-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="employee-card" data-employee="miguel" data-name="Miguel Rodriguez" role="button" tabindex="0">
-                            <div class="employee-photo">
-                                <div class="employee-avatar miguel"></div>
-                            </div>
-                            <div class="employee-info">
-                                <h3>Miguel Rodriguez</h3>
-                                <p class="employee-specialty">Experto en barbas y bigotes</p>
-                                <p class="employee-experience">6 años de experiencia</p>
-                                <div class="employee-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="employee-card" data-employee="andres" data-name="Andrés Silva" role="button" tabindex="0">
-                            <div class="employee-photo">
-                                <div class="employee-avatar andres"></div>
-                            </div>
-                            <div class="employee-info">
-                                <h3>Andrés Silva</h3>
-                                <p class="employee-specialty">Cortes modernos y tendencias</p>
-                                <p class="employee-experience">10 años de experiencia</p>
-                                <div class="employee-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>5.0</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="employee-card any-employee" data-employee="any" data-name="Cualquier barbero disponible" role="button" tabindex="0">
-                            <div class="employee-photo any">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="employee-info">
-                                <h3>El próximo disponible</h3>
-                                <p class="employee-specialty">Todos nuestros profesionales</p>
-                                <p class="employee-experience">Experiencia garantizada</p>
-                                <div class="employee-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="slide-actions">
-                        <p class="selection-text">Barbero seleccionado: <span id="selected-barber-name">Ninguno</span></p>
-                        <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
-                    </div>
-                </div>
-            </div>
+        <div class="info-item">
+          <span>📱</span>
+          <span>+57 300 123 4567</span>
         </div>
-
-        <!-- Slide 3: Servicios optimizado -->
-        <div class="slide">
-            <div class="services">
-                <div class="container">
-                    <div class="top-spacer"></div>
-                    <h2>¿Qué servicio deseas?</h2>
-                    <p class="subtitle">Selecciona el servicio que mejor se adapte a tus necesidades</p>
-                    
-                    <div class="services-grid">
-                        <div class="service-card" data-service="corte" data-name="Corte de cabello" data-price="25000" role="button" tabindex="0">
-                            <i class="fas fa-cut"></i>
-                            <h3>Corte de cabello</h3>
-                            <p>Cortes tradicionales con técnicas modernas</p>
-                            <div class="price">$25.000</div>
-                        </div>
-
-                        <div class="service-card" data-service="afeitado" data-name="Afeitado con navaja" data-price="35000" role="button" tabindex="0">
-                            <i class="fas fa-razor"></i>
-                            <h3>Afeitado con navaja</h3>
-                            <p>Afeitado con navaja y tratamiento facial</p>
-                            <div class="price">$35.000</div>
-                        </div>
-
-                        <div class="service-card" data-service="combo" data-name="Servicio completo" data-price="45000" role="button" tabindex="0">
-                            <i class="fas fa-scissors"></i>
-                            <h3>Servicio completo</h3>
-                            <p>Servicio completo de corte y arreglo de barba</p>
-                            <div class="price">$45.000</div>
-                        </div>
-
-                        <div class="service-card premium" data-service="premium" data-name="Experiencia Premium" data-price="80000" role="button" tabindex="0">
-                            <i class="fas fa-crown"></i>
-                            <h3>Experiencia Premium</h3>
-                            <p>Tratamiento completo para ocasiones especiales</p>
-                            <div class="price">$80.000</div>
-                        </div>
-                    </div>
-                    
-                    <div class="slide-actions">
-                        <p class="selection-text">Servicio seleccionado: <span id="selected-service-name">Ninguno</span></p>
-                        <p class="auto-advance-text">Se avanzará automáticamente tras seleccionar</p>
-                    </div>
-                </div>
-            </div>
+        <div class="info-item">
+          <span>📧</span>
+          <span>info@barberiaframes.com</span>
         </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- Slide 4: Reserva con calendario mejorado -->
-        <div class="slide">
-            <div class="booking">
-                <div class="container">
-                    <div class="top-spacer"></div>
-                    <div class="booking-header">
-                        <h2>Reserva tu cita</h2>
-                        <p>Completa tu reserva con nuestro calendario integrado</p>
-                    </div>
-                    
-                    <!-- Resumen de selección -->
-                    <div id="booking-summary">
-                        <strong>Resumen:</strong> Barbero: <span id="summary-barber">-</span> | Servicio: <span id="summary-service">-</span>
-                    </div>
-                    
-                    <!-- Calendario responsivo -->
-                    <div class="calendar-container">
-                        <iframe 
-                            id="calendar-iframe"
-                            src="https://calendar.google.com/calendar/embed?height=400&wkst=2&bgcolor=%23ffffff&ctz=America%2FBogota&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&mode=AGENDA"
-                            frameborder="0" 
-                            scrolling="no"
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Contacto optimizado -->
-        <div class="slide">
-            <div class="contact">
-                <div class="container">
-                    <div class="contact-content">
-                        <div class="contact-info">
-                            <h2>¡Tu cita está lista!</h2>
-                            <p class="confirmation-text">Tu cita ha sido agendada exitosamente. Recibirás un correo de confirmación con todos los detalles.</p>
-                            
-                            <!-- Resumen final responsivo -->
-                            <div class="final-summary">
-                                <h3>Resumen de tu cita:</h3>
-                                <div class="summary-grid">
-                                    <div class="summary-item">
-                                        <i class="fas fa-user"></i>
-                                        <div>
-                                            <strong>Barbero:</strong>
-                                            <span id="final-barber">-</span>
-                                        </div>
-                                    </div>
-                                    <div class="summary-item">
-                                        <i class="fas fa-cut"></i>
-                                        <div>
-                                            <strong>Servicio:</strong>
-                                            <span id="final-service">-</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-details">
-                                <div class="contact-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div>
-                                        <h3>Dirección</h3>
-                                        <p>Calle 123 #45-67<br>Bogotá, Colombia</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-item">
-                                    <i class="fas fa-phone"></i>
-                                    <div>
-                                        <h3>Teléfono</h3>
-                                        <p>+57 300 123 4567</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-item">
-                                    <i class="fas fa-clock"></i>
-                                    <div>
-                                        <h3>Horarios</h3>
-                                        <p>Lunes - Viernes: 9:00 AM - 8:00 PM<br>
-                                        Sábados: 8:00 AM - 6:00 PM<br>
-                                        Domingos: 10:00 AM - 4:00 PM</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <div>
-                                        <h3>Email</h3>
-                                        <p>info@barbershopeite.com</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Acciones responsivas -->
-                        <div class="contact-actions">
-                            <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20confirmar%20mi%20cita%20en%20Barbershop%20Elite" 
-                               class="btn-whatsapp" 
-                               target="_blank" 
-                               rel="noopener">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>Confirmar por WhatsApp</span>
-                            </a>
-                            
-                            <button class="btn-secondary" onclick="resetSelections()">
-                                <i class="fas fa-plus"></i>
-                                <span>Nueva reserva</span>
-                            </button>
-                            
-                            <button class="btn-calendar" onclick="addToGoogleCalendar()">
-                                <i class="fas fa-calendar-plus"></i>
-                                <span>Agregar a Google Calendar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Modal de Agradecimiento -->
+  <div id="thanks-modal" class="modal">
+    <div class="modal-content">
+      <h3>🎉 ¡Gracias por tu reserva!</h3>
+      <p>Tu turno ha sido registrado exitosamente en nuestro sistema. Recibirás la confirmación y recordatorios automáticos en tu email.</p>
+      <p style="font-size: 0.9rem; color: var(--gray);">Te esperamos en Barbería Frames para brindarte el mejor servicio.</p>
+      <button id="thanks-close" class="btn-primary">Perfecto, gracias</button>
     </div>
+  </div>
 
-    <!-- Overlay de confirmación -->
-    <div id="confirmation-overlay" class="confirmation-hidden">
-        <div class="confirmation-content">
-            <i class="fas fa-check-circle"></i>
-            <h3>¡Reserva Confirmada!</h3>
-            <p>Tu cita ha sido agendada exitosamente</p>
-            <div class="confirmation-details">
-                <p><strong>👨‍💼 Barbero:</strong> <span id="confirmation-barber">-</span></p>
-                <p><strong>📋 Servicio:</strong> <span id="confirmation-service">-</span></p>
-                <p><strong>📍 Ubicación:</strong> Calle 123 #45-67, Bogotá</p>
-                <p><strong>📞 WhatsApp:</strong> +57 300 123 4567</p>
-            </div>
-            <div class="confirmation-actions">
-                <button class="btn-primary" onclick="nextSlide(); closeConfirmation();">
-                    <i class="fas fa-check"></i>
-                    Continuar
-                </button>
-                <button class="btn-secondary" onclick="closeConfirmation()">
-                    <i class="fas fa-times"></i>
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
+  <!-- Panel de Diagnóstico -->
+  <div id="diagnostic" class="diagnostic">
+    <h4>🔧 Diagnóstico del Sistema</h4>
+    <div id="diagnostic-log" class="log"></div>
+    <button id="clear-log" class="btn-secondary" style="margin-top: 0.5rem; font-size: 0.8rem;">Limpiar log</button>
+  </div>
 
-    <script src="script_responsive.js"></script>
+  <script>
+    // Sistema de reservas con Google Calendar
+    (function() {
+      // URL de tu Google Calendar Appointment Scheduling
+      const BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2qKy6BclnXPW03LJKRvdG1anz4jZyYqCc2qUv_JUM4b_IcPBGHNPxkvW6Y5TU5gu5J0AOoJrPw?gv=true';
+      
+      let popupWindow = null;
+      let pollTimer = null;
+      let openedAt = 0;
+      let hasShownThanks = false;
+
+      // Sistema de logging para diagnóstico
+      function log(message, type = 'info') {
+        const timestamp = new Date().toLocaleTimeString();
+        const logElement = document.getElementById('diagnostic-log');
+        const diagnostic = document.getElementById('diagnostic');
+        
+        console.log(`[BARBERÍA] ${message}`);
+        
+        if (logElement) {
+          const logLine = `[${timestamp}] ${message}\n`;
+          logElement.textContent += logLine;
+          logElement.scrollTop = logElement.scrollHeight;
+          diagnostic.style.display = 'block';
+        }
+      }
+
+      // Función principal para abrir el popup de reservas
+      function openBookingPopup() {
+        log('Iniciando proceso de reserva...');
+
+        // Calcular dimensiones del popup
+        const width = Math.min(1000, Math.floor(window.innerWidth * 0.9));
+        const height = Math.min(800, Math.floor(window.innerHeight * 0.9));
+        const left = Math.max(0, Math.floor((screen.width - width) / 2));
+        const top = Math.max(0, Math.floor((screen.height - height) / 2));
+
+        // Si ya hay un popup abierto, enfocarlo
+        if (popupWindow && !popupWindow.closed) {
+          log('Popup ya existe, enfocando ventana existente');
+          try {
+            popupWindow.focus();
+          } catch (e) {
+            log('Error al enfocar popup existente: ' + e.message);
+          }
+          return;
+        }
+
+        // Resetear estado
+        hasShownThanks = false;
+
+        // Abrir nueva ventana popup
+        try {
+          popupWindow = window.open(
+            BOOKING_URL,
+            'barber_booking',
+            `popup=yes,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=${width},height=${height},left=${left},top=${top}`
+          );
+
+          // Verificar si el popup fue bloqueado
+          if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+            log('Popup bloqueado por el navegador, abriendo en nueva pestaña');
+            window.open(BOOKING_URL, '_blank');
+            return;
+          }
+
+          // Registrar tiempo de apertura
+          openedAt = Date.now();
+          log('Popup abierto correctamente');
+
+          // Enfocar el popup
+          setTimeout(() => {
+            try {
+              popupWindow.focus();
+            } catch (e) {
+              log('Error al enfocar popup: ' + e.message);
+            }
+          }, 100);
+
+          // Iniciar monitoreo del popup
+          startPopupMonitoring();
+
+        } catch (error) {
+          log('Error al abrir popup: ' + error.message);
+          // Fallback: abrir en nueva pestaña
+          window.open(BOOKING_URL, '_blank');
+        }
+      }
+
+      // Monitoreo del estado del popup
+      function startPopupMonitoring() {
+        clearInterval(pollTimer);
+        
+        pollTimer = setInterval(() => {
+          try {
+            // Verificar si el popup sigue abierto
+            if (!popupWindow || popupWindow.closed) {
+              clearInterval(pollTimer);
+              handlePopupClosed();
+            }
+          } catch (error) {
+            // Error al acceder al popup (puede indicar que se cerró)
+            clearInterval(pollTimer);
+            handlePopupClosed();
+          }
+        }, 1000); // Verificar cada segundo
+
+        log('Iniciado monitoreo del popup');
+      }
+
+      // Manejar el cierre del popup
+      function handlePopupClosed() {
+        const sessionDuration = Date.now() - openedAt;
+        const durationSeconds = Math.round(sessionDuration / 1000);
+        
+        log(`Popup cerrado después de ${durationSeconds} segundos`);
+
+        // Solo mostrar agradecimiento si:
+        // 1. El popup estuvo abierto al menos 15 segundos (tiempo mínimo para hacer una reserva)
+        // 2. No hemos mostrado ya el mensaje de agradecimiento
+        if (sessionDuration >= 15000 && !hasShownThanks) {
+          log('Mostrando mensaje de agradecimiento');
+          setTimeout(showThanksModal, 800); // Pequeño delay para suavidad
+        } else if (sessionDuration < 15000) {
+          log('Sesión muy corta, probablemente no completó reserva');
+        }
+      }
+
+      // Mostrar modal de agradecimiento
+      function showThanksModal() {
+        hasShownThanks = true;
+        const modal = document.getElementById('thanks-modal');
+        const closeBtn = document.getElementById('thanks-close');
+        
+        if (!modal || !closeBtn) {
+          log('Error: elementos del modal no encontrados');
+          return;
+        }
+
+        // Mostrar modal
+        modal.style.display = 'flex';
+        log('Modal de agradecimiento mostrado');
+
+        // Función para cerrar modal
+        function closeThanksModal() {
+          modal.style.display = 'none';
+          document.removeEventListener('keydown', handleEscapeKey);
+          modal.removeEventListener('click', handleBackdropClick);
+          closeBtn.removeEventListener('click', closeThanksModal);
+          log('Modal de agradecimiento cerrado');
+        }
+
+        // Cerrar con tecla Escape
+        function handleEscapeKey(e) {
+          if (e.key === 'Escape') {
+            closeThanksModal();
+          }
+        }
+
+        // Cerrar haciendo clic fuera del modal
+        function handleBackdropClick(e) {
+          if (e.target === modal) {
+            closeThanksModal();
+          }
+        }
+
+        // Eventos de cierre
+        closeBtn.addEventListener('click', closeThanksModal);
+        document.addEventListener('keydown', handleEscapeKey);
+        modal.addEventListener('click', handleBackdropClick);
+      }
+
+      // Inicialización cuando el DOM está listo
+      function initializeBookingSystem() {
+        const bookingBtn = document.getElementById('btn-reservar');
+        const clearLogBtn = document.getElementById('clear-log');
+        
+        if (bookingBtn) {
+          bookingBtn.addEventListener('click', openBookingPopup);
+          log('Sistema de reservas inicializado correctamente');
+        } else {
+          log('Error: botón de reservas no encontrado');
+        }
+
+        if (clearLogBtn) {
+          clearLogBtn.addEventListener('click', () => {
+            document.getElementById('diagnostic-log').textContent = '';
+            document.getElementById('diagnostic').style.display = 'none';
+          });
+        }
+      }
+
+      // Inicializar cuando el DOM esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeBookingSystem);
+      } else {
+        initializeBookingSystem();
+      }
+
+      log('Script cargado - Sistema listo para reservas');
+
+    })();
+
+    // Animaciones suaves al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.fade-in');
+      elements.forEach((el, index) => {
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
 </body>
 </html>
